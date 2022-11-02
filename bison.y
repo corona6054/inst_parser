@@ -19,24 +19,44 @@ extern char *yytext;
 extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char*);
-void mostrarResultado(char*);
+void mostrarResultado(char* salida);
 %}
 %union {char* cadena; int num;}
-%token INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
-%left SUMA RESTA
+%token FDT INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
+%left SUMA RESTA ASIGNACION
 %type <cadena> ID  
 %type <num> CONSTANTE 
 %%
-programa: INICIO ID FIN {mostrarResultado($2);}
-; 
+programa:   INICIO listasentencia FIN {mostrarResultado("codigo correcto");}
+;
+listasentencia: sentencias | listasentencia sentencias
+;
+sentencias: sentencia1 | sentencia2 | sentencia3
+;
+sentencia1:  ID ASIGNACION expresion PUNTOYCOMA
+;
+sentencia2:  LEER PARENIZQUIERDO listaidentificadores PARENDERECHO PUNTOYCOMA
+;
+sentencia3:  ESCRIBIR PARENIZQUIERDO listaexpresiones PARENDERECHO PUNTOYCOMA
+;
+listaidentificadores:   ID | listaidentificadores COMA ID
+;
+listaexpresiones:   expresion | listaexpresiones COMA expresion
+;
+expresion:  primaria | expresion operadoraditivo primaria
+;
+primaria:   ID | CONSTANTE | PARENIZQUIERDO expresion PARENDERECHO
+;
+operadoraditivo:    SUMA | RESTA
+;
 %%
 int main()
 {
-yyparse();
+        yyparse();
 }
-void mostrarResultado(char* a)
+void mostrarResultado(char* salida)
 {
-    printf("%s",a);
+    printf("%s",salida);
     int getc();
 }
 void yyerror(char* mensaje){
