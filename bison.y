@@ -20,6 +20,7 @@ extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char*);
 void mostrarResultado(char* salida);
+void leerID(char *yytext);
 %}
 %union {char* cadena; int num;}
 %token FDT INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
@@ -27,7 +28,7 @@ void mostrarResultado(char* salida);
 %type <cadena> ID  
 %type <num> CONSTANTE 
 %%
-programa:   INICIO listasentencia FIN {mostrarResultado("codigo correcto");}
+programa:   INICIO listasentencia FIN {mostrarResultado("Codigo correcto");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
@@ -39,7 +40,7 @@ sentencia2:  LEER PARENIZQUIERDO listaidentificadores PARENDERECHO PUNTOYCOMA
 ;
 sentencia3:  ESCRIBIR PARENIZQUIERDO listaexpresiones PARENDERECHO PUNTOYCOMA
 ;
-listaidentificadores:   ID | listaidentificadores COMA ID
+listaidentificadores:   ID {leerID($1);}| listaidentificadores COMA ID {leerID($3);}
 ;
 listaexpresiones:   expresion | listaexpresiones COMA expresion
 ;
@@ -53,6 +54,15 @@ operadoraditivo:    SUMA | RESTA
 int main()
 {
         yyparse();
+}
+void leerID(char *yytext)
+{
+    int lenght=0;
+    for (int i = 0; yytext[i] != ' '; i++) lenght++;
+    char* identificador;
+    strncpy(identificador,&yytext[0],lenght);
+    identificador[lenght] = '\0';
+    printf("Identificador : %s \n",identificador);
 }
 void mostrarResultado(char* salida)
 {
