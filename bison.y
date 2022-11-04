@@ -16,6 +16,14 @@ sumar: CONSTANTE|
 #include <string.h>
 
 
+struct tablaVars
+{
+    int valor;
+    char* nombre;
+};
+struct tablaVars listaIds[10];
+int contadorVar=0;
+
 extern char *yytext;
 extern int yyleng;
 extern int yylex(void);
@@ -23,6 +31,7 @@ extern void yyerror(char*);
 void mostrarNum(int salida);
 void mostrarResultado(char* salida);
 void leerID(char *yytext);
+void asignarVar(int contadorVar,char* var, int num);
 %}
 %union {char* cadena; int num;}
 %token FDT INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
@@ -36,14 +45,14 @@ listasentencia: sentencias | listasentencia sentencias
 ;
 sentencias: sentencia1 | sentencia2 | sentencia3
 ;
-sentencia1:  ID ASIGNACION expresion PUNTOYCOMA
+sentencia1:  ID ASIGNACION expresion PUNTOYCOMA { asignarVar(contadorVar,$1,$3); contadorVar++;  }
 ;
 sentencia2:  LEER PARENIZQUIERDO listaidentificadores PARENDERECHO PUNTOYCOMA
 ;
 sentencia3:  ESCRIBIR PARENIZQUIERDO listaexpresiones PARENDERECHO PUNTOYCOMA 
 ;
 listaidentificadores :
-   ID {leerID($1);}| listaidentificadores COMA ID {leerID($3);}
+   ID {leerID($1); contadorVar++;}| listaidentificadores COMA ID {leerID($3); contadorVar++;}
 ;
 listaexpresiones:   expresion { mostrarNum($1);} | listaexpresiones COMA expresion { mostrarNum($3);}
 ;
@@ -66,10 +75,18 @@ void leerID(char *yytext)
     char* identificador;
     strncpy(identificador,&yytext[0],lenght);
     identificador[lenght] = '\0';
-    printf("Identificador : %s \n",identificador);
-    printf("Ingresar valor : \n");
-    int valor;
-    scanf("%d",&valor);
+    printf(" %s = ",identificador);
+    int num;
+    scanf("%d",&num);
+    listaIds[contadorVar].valor = num;
+    listaIds[contadorVar].nombre = identificador; 
+
+}
+
+void asignarVar(int contadorVar,char* var, int num)
+{
+    listaIds[contadorVar].valor = num;
+    listaIds[contadorVar].nombre = var; 
 }
 void mostrarResultado(char* salida)
 {
