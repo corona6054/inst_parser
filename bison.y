@@ -32,7 +32,7 @@ void mostrarNum(int salida);
 void mostrarResultado(char* salida);
 void leerVAR(char *yytext);
 void asignarVar(int contadorVar,char* var, int num);
-int devolverNum();
+int devolverNum(char var[32];);
 
 %}
 %union {char* cadena; int num;}
@@ -61,7 +61,7 @@ listaexpresiones:   expresion { mostrarNum($1);} | listaexpresiones COMA expresi
 expresion:  primaria {$$ =$1;} 
 | expresion operadoraditivo primaria { if($2) $$ = $1 + $3; else $$ = $1 - $3; }
 ;
-primaria:   ID {$$=devolverNum();} | CONSTANTE {$$ = $1;} | PARENIZQUIERDO expresion PARENDERECHO {$$ = $2;}
+primaria:   ID {$$=devolverNum($1);} | CONSTANTE {$$ = $1;} | PARENIZQUIERDO expresion PARENDERECHO {$$ = $2;}
 ;
 operadoraditivo:    SUMA {$$ = 1;} | RESTA {$$ = 0;}
 ;
@@ -84,8 +84,6 @@ void leerVAR(char *yytext)
     listaIds[contadorVar].valor = num;
     strcpy(listaIds[contadorVar].nombre,identificador);
 
-    printf(" %s = %d \n",listaIds[contadorVar].nombre,listaIds[contadorVar].valor);
-
 }
 
 void asignarVar(int contadorVar,char* var, int num)
@@ -93,7 +91,6 @@ void asignarVar(int contadorVar,char* var, int num)
     listaIds[contadorVar].valor = num;
     strcpy(listaIds[contadorVar].nombre,var);
 
-    printf(" %s = %d \n",var,listaIds[contadorVar].valor);
 }
 
 void mostrarResultado(char* salida)
@@ -106,28 +103,8 @@ void mostrarNum(int salida)
     printf("Salida: %d \n",salida);
     int getc();
 }
-int devolverNum()
+int devolverNum(char var[32])
 {
-    char var[32];
-    int cont;
-      for (int i = 0; i <2; i++)
-      {
-        printf("Nombre var= ");
-        scanf("%s",&var);
-        printf("%s = ",var);
-        scanf("%d",&cont);
-        printf("%s = %d \n",var,cont);
-        listaIds[i].valor = cont;
-        strcpy(listaIds[i].nombre,var);
-      }
-
-
-        for (int i = 0; i <2; i++) printf("Variable N%d:  %s = %d \n",i,listaIds[i].nombre,listaIds[i].valor);
-
-
-        printf(" Buscar = ");
-        scanf("%s", var);
-
         int fintexto=0;
         for (int i = 0; i <32; i++)
         {
@@ -145,9 +122,6 @@ int devolverNum()
             if(comparacion==0) i=10; else lenght++;
 
         }
-
-        printf(" %s = %d \n",listaIds[lenght].nombre,listaIds[lenght].valor);
-
 
       return listaIds[lenght].valor;
 }
