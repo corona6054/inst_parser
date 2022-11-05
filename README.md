@@ -2,7 +2,7 @@
 #### Ejemplo 1
 ![image](https://user-images.githubusercontent.com/49161024/200133617-bf5313fc-8ce7-4227-bcbd-4cd9eb62c6a1.png)
 #### Ejemplo 2
-![image](https://user-images.githubusercontent.com/49161024/200132724-f18340e1-9b18-4d24-bc59-b9cbc5ee2524.png)
+![image](https://user-images.githubusercontent.com/49161024/200133775-b0df9f64-b4f5-41f3-959d-ab4c5578edda.png)
 #### Ejemplo 3
 ![image](https://user-images.githubusercontent.com/49161024/200132513-67b898e9-e113-4b57-b09b-a14c0bfe2da0.png)
 #### Ejemplo 4
