@@ -31,23 +31,24 @@ extern void yyerror(char*);
 void mostrarNum(int salida);
 void mostrarResultado(char* salida);
 void leerVAR(char *yytext);
-void asignarVar(int contadorVar,char var[32], int num);
+void asignarVar(char var[32], int num);
 int devolverNum(char var[32];);
 
 %}
 %union {char* cadena; int num;}
 %token FDT INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
-%left SUMA RESTA ASIGNACION
+%left SUMA RESTA 
+%left ASIGNACION
 %type <cadena> ID  
 %type <num> CONSTANTE SUMA RESTA expresion primaria operadoraditivo
 %%
-programa:   INICIO listasentencia FIN {mostrarResultado("Codigo correcto");}
+programa:   INICIO listasentencia FIN {mostrarResultado("Gramatica correcta");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
 sentencias: sentencia1 | sentencia2 | sentencia3
 ;
-sentencia1:  ID ASIGNACION expresion PUNTOYCOMA { asignarVar(contadorVar,$1,$3); contadorVar++;  }
+sentencia1:  ID ASIGNACION expresion PUNTOYCOMA { asignarVar($1,$3); contadorVar++;  }
 ;
 sentencia2:  LEER PARENIZQUIERDO listaidentificadores PARENDERECHO PUNTOYCOMA
 ;
@@ -86,7 +87,7 @@ void leerVAR(char *yytext)
 
 }
 
-void asignarVar(int contadorVar,char var[32], int num)
+void asignarVar(char var[32], int num)
 {
     int fintexto=0;
         for (int i = 0; i <32; i++)
@@ -100,7 +101,7 @@ void asignarVar(int contadorVar,char var[32], int num)
     listaIds[contadorVar].valor = num;
     strcpy(listaIds[contadorVar].nombre,texto);
 
-    printf("Asignado: %s \n",listaIds[contadorVar].nombre);
+    printf("Var asignada: %s \n",listaIds[contadorVar].nombre);
 
 
 }
@@ -128,17 +129,17 @@ int devolverNum(char var[32])
 
         int comparacion=0;
         int lenght=0;
-        for (int i = 0; i <2; i++)
+        for (int i = 0; i <11; i++)
         {
             comparacion= strcmp(listaIds[lenght].nombre,texto);
-            if(comparacion==0) i=10; else lenght++;
+            if(comparacion==0) i=11; else lenght++;
 
         }
-
+      if(lenght==11) yyerror("Error variable no declarada \n");
       return listaIds[lenght].valor;
 }
 void yyerror(char* mensaje){
- printf("mi error era: %s",mensaje); 
+ printf("%s",mensaje); 
 
 }
 
