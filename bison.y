@@ -31,7 +31,7 @@ extern void yyerror(char*);
 void mostrarNum(int salida);
 void mostrarResultado(char* salida);
 void leerVAR(char *yytext);
-void asignarVar(int contadorVar,char* var, int num);
+void asignarVar(int contadorVar,char var[32], int num);
 int devolverNum(char var[32];);
 
 %}
@@ -86,10 +86,22 @@ void leerVAR(char *yytext)
 
 }
 
-void asignarVar(int contadorVar,char* var, int num)
+void asignarVar(int contadorVar,char var[32], int num)
 {
+    int fintexto=0;
+        for (int i = 0; i <32; i++)
+        {
+            if(var[i]==':'||var[i]==' ') i=33; else fintexto++;
+
+        }
+        char texto[32];
+        strncpy(texto,&var[0],fintexto);
+
     listaIds[contadorVar].valor = num;
-    strcpy(listaIds[contadorVar].nombre,var);
+    strcpy(listaIds[contadorVar].nombre,texto);
+
+    printf("Asignado: %s \n",listaIds[contadorVar].nombre);
+
 
 }
 
