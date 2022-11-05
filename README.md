@@ -1,6 +1,6 @@
 # TP-Micro
 #### Ejemplo 1
-![image](https://user-images.githubusercontent.com/49161024/200132558-4d57d28f-56ca-459b-a2d9-c73531a2e557.png)
+![image](https://user-images.githubusercontent.com/49161024/200133617-bf5313fc-8ce7-4227-bcbd-4cd9eb62c6a1.png)
 #### Ejemplo 2
 ![image](https://user-images.githubusercontent.com/49161024/200132724-f18340e1-9b18-4d24-bc59-b9cbc5ee2524.png)
 #### Ejemplo 3
