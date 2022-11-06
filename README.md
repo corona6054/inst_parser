@@ -1,6 +1,5 @@
 # TP-Micro   https://github.com/corona6054/TP-Micro
-## Estudiante: 
-### Corona, Valentín Nicolás
+## Estudiante: ### Corona, Valentín Nicolás
 
 
 #### Ejemplo 1
