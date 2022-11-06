@@ -2,7 +2,6 @@
 ## INTEGRANTES: 
 
 ### Corona, Valentín Nicolás
-### Costanzó, Matías Andrés
 
 #### Ejemplo 1
 ![image](https://user-images.githubusercontent.com/49161024/200133617-bf5313fc-8ce7-4227-bcbd-4cd9eb62c6a1.png)
