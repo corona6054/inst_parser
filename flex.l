@@ -11,21 +11,26 @@ LETRAS [_a-zA-Z]
 ID {LETRAS}({LETRAS}|{DIGITO})*
 CONSTANTE {DIGITO}+
 %%
-"inicio" {return (INICIO);}
-"fin" {return (FIN);}
-":=" {return (ASIGNACION);}
-";" {return (PUNTOYCOMA);}
-"leer" {return (LEER);}
-"(" {return (PARENIZQUIERDO);}
-")" {return (PARENDERECHO);}
-"escribir" {return (ESCRIBIR);}
-"," {return (COMA);}
+"F_READ" {return (F_READ);}
+"F_WRITE" {return (F_WRITE);}
+"SET" {return (SET);}
+"MOV_IN" {return (MOV_IN);}
+"MOV_OUT" {return (MOV_OUT);}
+"F_TRUNCATE" {return (F_TRUNCATE);}
+"F_SEEK" {return (F_SEEK);}
+"CREATE_SEGMENT" {return (CREATE_SEGMENT);}
+"I/O" {return (IO);}
+"WAIT" {return (WAIT);}
+"SIGNAL" {return (SIGNAL);}
+"F_OPEN" {return (F_OPEN);}
+"F_CLOSE" {return (F_CLOSE);}
+"DELETE_SEGMENT" {return (DELETE_SEGMENT);}
+"EXIT" {return (EXIT);}
+"YIELD" {return (YIELD);}
 {CONSTANTE}  {
     yylval.num=atoi(yytext);
     return (CONSTANTE);
     }
-"+" {return (SUMA);}
-"-" {return (RESTA);}
 {ID} {
     yylval.cadena=yytext;
     return (ID);
