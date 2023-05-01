@@ -21,7 +21,7 @@ extern int yylex(void);
 extern void yyerror(char*);
 
 void mostrarResultado(char* salida);
-void asignarVar(char var[32], int num, int num2);
+void asignarVar(int var, int num, int num2);
 
 %}
 %union {char* cadena; int num;}
@@ -34,35 +34,34 @@ programa:  listasentencia EXIT {mostrarResultado("Intruccion correcta /n");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
-sentencias: sentencia1
+sentencias: sentencia1 | sentencia2
 ;
-sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar("ALGO:",$2,$3); contadorVar++;} |
-            F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar("ALGO:",$2,$3); contadorVar++;}
+sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$2,$3); contadorVar++;} 
+;
+sentencia2: F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_WRITE-258,$2,$3); contadorVar++;}
 ;
 
 %%
 int main()
 {
         yyparse();
+    printf("parametros asignada: %d \n",listaIds[0].valor);
+        printf("parametros asignada: %d \n",listaIds[1].valor);
+ int num;
+    scanf("%d",&num);
+
+
 }
 
 
-void asignarVar(char var[32], int num, int num2)
+void asignarVar(int var, int num, int num2)
 {
-    int fintexto=0;
-        for (int i = 0; i <32; i++)
-        {
-            if(var[i]==':'||var[i]==' ') i=33; else fintexto++;
 
-        }
-        char texto[32];
-        strncpy(texto,&var[0],fintexto);
 
     listaIds[contadorVar].valor = num;
         listaIds[contadorVar].valor2 = num2;
 
-    strcpy(listaIds[contadorVar].nombre,texto);
-
+    printf("parametros asignada: %d \n",var);
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor);
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor2);
 
