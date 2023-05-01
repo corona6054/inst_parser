@@ -4,6 +4,7 @@
 #include "y.tab.h"
 #ifndef yywrap
 static int yywrap(void) { return 1;}
+  extern int line_num;
 #endif
 %}
 DIGITO [0-9]
@@ -27,7 +28,7 @@ CONSTANTE {DIGITO}+
 "DELETE_SEGMENT" {return (DELETE_SEGMENT);}
 "EXIT" {return (EXIT);}
 "YIELD" {return (YIELD);}
-"\n" {return (NEWLINE);  }
+"\n" { line_num++; return (NEWLINE);  }
 {CONSTANTE}  {
     yylval.num=atoi(yytext);
     return (CONSTANTE);
