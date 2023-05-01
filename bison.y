@@ -36,7 +36,7 @@ listasentencia: sentencias | listasentencia sentencias
 ;
 sentencias: sentencia1 | sentencia2
 ;
-sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$2,$3,""); contadorVar++;} |
+sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$3,$4,$2); contadorVar++;} |
  
 ;
 sentencia2: F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_WRITE-258,$2,$3,""); contadorVar++;}
@@ -57,11 +57,15 @@ int main()
 
 void asignarVar(int var, int num, int num2, char * nombre)
 {
+    int lenght=0;
+    for (int i = 0; yytext[i] != ' '; i++) lenght++;
+    char identificador[32];
+    strncpy(identificador,&nombre[0],lenght+1);
 
     listaIds[contadorVar].instr = var;
     listaIds[contadorVar].valor = num;
     listaIds[contadorVar].valor2 = num2;
-    strcpy(listaIds[contadorVar].nombre,nombre);
+    strcpy(listaIds[contadorVar].nombre,identificador);
 
 
     printf("parametros asignada: %d \n",listaIds[contadorVar].instr);
