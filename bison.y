@@ -7,9 +7,9 @@
 
 struct tablaVars
 {
+    int instr;
     int valor;
-        int valor2;
-
+    int valor2;
     char nombre[32];
 };
 struct tablaVars listaIds[10];
@@ -21,7 +21,7 @@ extern int yylex(void);
 extern void yyerror(char*);
 
 void mostrarResultado(char* salida);
-void asignarVar(int var, int num, int num2);
+void asignarVar(int var, int num, int num2,char * nombre);
 
 %}
 %union {char* cadena; int num;}
@@ -36,9 +36,10 @@ listasentencia: sentencias | listasentencia sentencias
 ;
 sentencias: sentencia1 | sentencia2
 ;
-sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$2,$3); contadorVar++;} 
+sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$2,$3,""); contadorVar++;} |
+ 
 ;
-sentencia2: F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_WRITE-258,$2,$3); contadorVar++;}
+sentencia2: F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar(F_WRITE-258,$2,$3,""); contadorVar++;}
 ;
 
 %%
@@ -54,16 +55,19 @@ int main()
 }
 
 
-void asignarVar(int var, int num, int num2)
+void asignarVar(int var, int num, int num2, char * nombre)
 {
 
-
+    listaIds[contadorVar].instr = var;
     listaIds[contadorVar].valor = num;
-        listaIds[contadorVar].valor2 = num2;
+    listaIds[contadorVar].valor2 = num2;
+    strcpy(listaIds[contadorVar].nombre,nombre);
 
-    printf("parametros asignada: %d \n",var);
+
+    printf("parametros asignada: %d \n",listaIds[contadorVar].instr);
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor);
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor2);
+    printf("parametros asignada: %s \n",listaIds[contadorVar].nombre);
 
 
 }
