@@ -25,16 +25,19 @@ void asignarVar(char var[32], int num, int num2);
 
 %}
 %union {char* cadena; int num;}
-%token F_READ F_WRITE SET MOV_IN MOV_OUT F_TRUNCATE F_SEEK CREATE_SEGMENT IO WAIT SIGNAL F_OPEN F_CLOSE DELETE_SEGMENT EXIT YIELD ID CONSTANTE
+%token F_READ F_WRITE SET MOV_IN MOV_OUT F_TRUNCATE F_SEEK CREATE_SEGMENT IO WAIT SIGNAL F_OPEN F_CLOSE DELETE_SEGMENT EXIT YIELD NEWLINE
+%token ID CONSTANTE
 %type <cadena> ID  
 %type <num> CONSTANTE
 %%
 programa:  listasentencia EXIT {mostrarResultado("Intruccion correcta /n");}
 ;
-listasentencia: sentencias 
+listasentencia: sentencias | listasentencia sentencias
 ;
-sentencias: F_READ CONSTANTE CONSTANTE { asignarVar("ALGO:",$2,$3); contadorVar++;     printf("parametros asignada: %d \n",listaIds[contadorVar].valor2);
-}
+sentencias: sentencia1
+;
+sentencia1: F_READ  CONSTANTE CONSTANTE NEWLINE { asignarVar("ALGO:",$2,$3); contadorVar++;} |
+            F_WRITE  CONSTANTE CONSTANTE NEWLINE { asignarVar("ALGO:",$2,$3); contadorVar++;}
 ;
 
 %%
@@ -62,8 +65,6 @@ void asignarVar(char var[32], int num, int num2)
 
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor);
     printf("parametros asignada: %d \n",listaIds[contadorVar].valor2);
-        printf("parametros asignada: %d \n",listaIds[contadorVar].valor2);
-
 
 
 }

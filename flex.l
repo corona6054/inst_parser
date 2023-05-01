@@ -27,6 +27,7 @@ CONSTANTE {DIGITO}+
 "DELETE_SEGMENT" {return (DELETE_SEGMENT);}
 "EXIT" {return (EXIT);}
 "YIELD" {return (YIELD);}
+"\n" {return (NEWLINE);  }
 {CONSTANTE}  {
     yylval.num=atoi(yytext);
     return (CONSTANTE);
