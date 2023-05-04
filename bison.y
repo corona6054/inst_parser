@@ -1,15 +1,4 @@
 %{
-    /*         Consigna:
-    
-    Hacer un programa utilizando flex y bison que realice analisis léxico,
-    sintáctico y semántico de micro.
-    Deben personalizar los errores e implementar al menos 3 rutinas semánticas.
-
-sumar: CONSTANTE|
-           sumar SUMA sumar {mostrarResultado($1+$3);}
-;
-
-    */ 
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -18,90 +7,88 @@ sumar: CONSTANTE|
 
 struct tablaVars
 {
+    int instr;
     int valor;
+    int valor2;
     char nombre[32];
 };
 struct tablaVars listaIds[10];
 int contadorVar=0;
+int line_num = -1;
+
 
 extern char *yytext;
 extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char*);
-void mostrarNum(int salida);
+
 void mostrarResultado(char* salida);
-void leerVAR(char *yytext);
-void asignarVar(char var[32], int num);
-int devolverNum(char var[32];);
+void asignarVar(int var,char * nombre, int num, int num2);
 
 %}
 %union {char* cadena; int num;}
-%token FDT INICIO FIN ID ASIGNACION PUNTOYCOMA LEER PARENIZQUIERDO PARENDERECHO ESCRIBIR COMA CONSTANTE SUMA RESTA
-%left SUMA RESTA 
-%left ASIGNACION
+%token F_READ F_WRITE SET MOV_IN MOV_OUT F_TRUNCATE F_SEEK CREATE_SEGMENT IO WAIT SIGNAL F_OPEN F_CLOSE DELETE_SEGMENT EXIT YIELD NEWLINE
+%token ID CONSTANTE
 %type <cadena> ID  
-%type <num> CONSTANTE SUMA RESTA expresion primaria operadoraditivo
+%type <num> CONSTANTE
 %%
-programa:   INICIO listasentencia FIN {mostrarResultado("Gramatica correcta");}
+programa:  listasentencia EXIT {mostrarResultado("Intruccion correcta /n");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
-sentencias: sentencia1 | sentencia2 | sentencia3
+sentencias: sentencia1 | sentencia2 | sentencia3 | YIELD NEWLINE { asignarVar(YIELD-258,"",0,0); contadorVar++;} 
 ;
-sentencia1:  ID ASIGNACION expresion PUNTOYCOMA { asignarVar($1,$3); contadorVar++;  }
+sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE { asignarVar(F_READ -258,$2,$3,$4); contadorVar++;} |
+            F_WRITE ID CONSTANTE CONSTANTE NEWLINE { asignarVar(F_WRITE -258,$2,$3,$4); contadorVar++;} 
 ;
-sentencia2:  LEER PARENIZQUIERDO listaidentificadores PARENDERECHO PUNTOYCOMA
+sentencia2: SET  ID CONSTANTE NEWLINE { asignarVar(SET-258,$2,$3,0); contadorVar++;} |
+            MOV_IN  ID CONSTANTE NEWLINE { asignarVar(MOV_IN-258,$2,$3,0); contadorVar++;} |
+            MOV_OUT  CONSTANTE ID NEWLINE { asignarVar(MOV_OUT-258,$3,$2,0); contadorVar++;} |
+            F_TRUNCATE  ID CONSTANTE NEWLINE { asignarVar(F_TRUNCATE-258,$2,$3,0); contadorVar++;} |
+            F_SEEK  ID CONSTANTE NEWLINE { asignarVar(F_SEEK-258,$2,$3,0); contadorVar++;} |
+            CREATE_SEGMENT  CONSTANTE CONSTANTE NEWLINE { asignarVar(CREATE_SEGMENT-258,"",$2,$3); contadorVar++;} 
 ;
-sentencia3:  ESCRIBIR PARENIZQUIERDO listaexpresiones PARENDERECHO PUNTOYCOMA 
+sentencia3: IO CONSTANTE NEWLINE { asignarVar(IO-258,"",$2,0); contadorVar++;} |
+            WAIT ID NEWLINE { asignarVar(WAIT-258,$2,0,0); contadorVar++;} |
+            SIGNAL ID NEWLINE { asignarVar(SIGNAL-258,$2,0,0); contadorVar++;} |
+            F_OPEN ID NEWLINE { asignarVar(F_OPEN-258,$2,0,0); contadorVar++;} |
+            DELETE_SEGMENT CONSTANTE NEWLINE { asignarVar(DELETE_SEGMENT-258,"",$2,0); contadorVar++;} 
 ;
-listaidentificadores :
-   ID {leerVAR($1); contadorVar++;}| listaidentificadores COMA ID {leerVAR($3); contadorVar++;}
-;
-listaexpresiones:   expresion { mostrarNum($1);} | listaexpresiones COMA expresion { mostrarNum($3);}
-;
-expresion:  primaria {$$ =$1;} 
-| expresion operadoraditivo primaria { if($2) $$ = $1 + $3; else $$ = $1 - $3; }
-;
-primaria:   ID {$$=devolverNum($1);} | CONSTANTE {$$ = $1;} | PARENIZQUIERDO expresion PARENDERECHO {$$ = $2;}
-;
-operadoraditivo:    SUMA {$$ = 1;} | RESTA {$$ = 0;}
-;
+
+
+
 %%
 int main()
 {
         yyparse();
+    printf("parametros asignada: %d \n",listaIds[0].instr);
+        printf("parametros asignada: %d \n",listaIds[1].instr);
+        printf("parametros asignada: %d \n",listaIds[2].instr);
+        printf("parametros asignada: %d \n",listaIds[3].instr);
+ int num;
+    scanf("%d",&num);
+
+
 }
 
-void leerVAR(char *yytext)
+
+void asignarVar(int var,char * nombre, int num, int num2)
 {
     int lenght=0;
     for (int i = 0; yytext[i] != ' '; i++) lenght++;
     char identificador[32];
-    strncpy(identificador,&yytext[0],lenght);
-    identificador[lenght] = '\0';
-    printf(" %s = ",identificador);
-    int num;
-    scanf("%d",&num);
-    listaIds[contadorVar].valor = num;
-    strcpy(listaIds[contadorVar].nombre,identificador);
+    strncpy(identificador,&nombre[0],lenght+1);
 
-}
+    listaIds[line_num].instr = var;
+    listaIds[line_num].valor = num;
+    listaIds[line_num].valor2 = num2;
+    strcpy(listaIds[line_num].nombre,identificador);
 
-void asignarVar(char var[32], int num)
-{
-    int fintexto=0;
-        for (int i = 0; i <32; i++)
-        {
-            if(var[i]==':'||var[i]==' ') i=33; else fintexto++;
-
-        }
-        char texto[32];
-        strncpy(texto,&var[0],fintexto);
-
-    listaIds[contadorVar].valor = num;
-    strcpy(listaIds[contadorVar].nombre,texto);
-
-    printf("Var asignada: %s \n",listaIds[contadorVar].nombre);
+    printf("NUMERO LINEA : %d \n",line_num);
+    printf("parametros asignada: %d \n",listaIds[line_num].instr);
+    printf("parametros asignada: %d \n",listaIds[line_num].valor);
+    printf("parametros asignada: %d \n",listaIds[line_num].valor2);
+    printf("parametros asignada: %s \n",listaIds[line_num].nombre);
 
 
 }
@@ -111,33 +98,7 @@ void mostrarResultado(char* salida)
     printf("%s",salida);
     int getc();
 }
-void mostrarNum(int salida)
-{
-    printf("Salida: %d \n",salida);
-    int getc();
-}
-int devolverNum(char var[32])
-{
-        int fintexto=0;
-        for (int i = 0; i <32; i++)
-        {
-            if(var[i]==32) i=10; else fintexto++;
 
-        }
-        char texto[32];
-        strncpy(texto,&var[0],fintexto);
-
-        int comparacion=0;
-        int lenght=0;
-        for (int i = 0; i <11; i++)
-        {
-            comparacion= strcmp(listaIds[lenght].nombre,texto);
-            if(comparacion==0) i=11; else lenght++;
-
-        }
-      if(lenght==11) yyerror("Error variable no declarada \n");
-      return listaIds[lenght].valor;
-}
 void yyerror(char* mensaje){
  printf("%s",mensaje); 
 
