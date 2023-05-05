@@ -1,0 +1,550 @@
+Terminals unused in grammar
+
+    F_CLOSE
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: listasentencia EXIT
+
+    2 listasentencia: sentencias
+    3               | listasentencia sentencias
+
+    4 sentencias: sentencia1
+    5           | sentencia2
+    6           | sentencia3
+    7           | YIELD NEWLINE
+
+    8 sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE
+    9           | F_WRITE ID CONSTANTE CONSTANTE NEWLINE
+
+   10 sentencia2: SET ID CONSTANTE NEWLINE
+   11           | MOV_IN ID CONSTANTE NEWLINE
+   12           | MOV_OUT CONSTANTE ID NEWLINE
+   13           | F_TRUNCATE ID CONSTANTE NEWLINE
+   14           | F_SEEK ID CONSTANTE NEWLINE
+   15           | CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE
+
+   16 sentencia3: IO CONSTANTE NEWLINE
+   17           | WAIT ID NEWLINE
+   18           | SIGNAL ID NEWLINE
+   19           | F_OPEN ID NEWLINE
+   20           | DELETE_SEGMENT CONSTANTE NEWLINE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    F_READ (258) 8
+    F_WRITE (259) 9
+    SET (260) 10
+    MOV_IN (261) 11
+    MOV_OUT (262) 12
+    F_TRUNCATE (263) 13
+    F_SEEK (264) 14
+    CREATE_SEGMENT (265) 15
+    IO (266) 16
+    WAIT (267) 17
+    SIGNAL (268) 18
+    F_OPEN (269) 19
+    F_CLOSE (270)
+    DELETE_SEGMENT (271) 20
+    EXIT (272) 1
+    YIELD (273) 7
+    NEWLINE (274) 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+    ID <cadena> (275) 8 9 10 11 12 13 14 17 18 19
+    CONSTANTE <num> (276) 8 9 10 11 12 13 14 15 16 20
+
+
+Nonterminals, with rules where they appear
+
+    $accept (22)
+        on left: 0
+    programa (23)
+        on left: 1
+        on right: 0
+    listasentencia (24)
+        on left: 2 3
+        on right: 1 3
+    sentencias (25)
+        on left: 4 5 6 7
+        on right: 2 3
+    sentencia1 (26)
+        on left: 8 9
+        on right: 4
+    sentencia2 (27)
+        on left: 10 11 12 13 14 15
+        on right: 5
+    sentencia3 (28)
+        on left: 16 17 18 19 20
+        on right: 6
+
+
+State 0
+
+    0 $accept: • programa $end
+
+    F_READ          shift, and go to state 1
+    F_WRITE         shift, and go to state 2
+    SET             shift, and go to state 3
+    MOV_IN          shift, and go to state 4
+    MOV_OUT         shift, and go to state 5
+    F_TRUNCATE      shift, and go to state 6
+    F_SEEK          shift, and go to state 7
+    CREATE_SEGMENT  shift, and go to state 8
+    IO              shift, and go to state 9
+    WAIT            shift, and go to state 10
+    SIGNAL          shift, and go to state 11
+    F_OPEN          shift, and go to state 12
+    DELETE_SEGMENT  shift, and go to state 13
+    YIELD           shift, and go to state 14
+
+    programa        go to state 15
+    listasentencia  go to state 16
+    sentencias      go to state 17
+    sentencia1      go to state 18
+    sentencia2      go to state 19
+    sentencia3      go to state 20
+
+
+State 1
+
+    8 sentencia1: F_READ • ID CONSTANTE CONSTANTE NEWLINE
+
+    ID  shift, and go to state 21
+
+
+State 2
+
+    9 sentencia1: F_WRITE • ID CONSTANTE CONSTANTE NEWLINE
+
+    ID  shift, and go to state 22
+
+
+State 3
+
+   10 sentencia2: SET • ID CONSTANTE NEWLINE
+
+    ID  shift, and go to state 23
+
+
+State 4
+
+   11 sentencia2: MOV_IN • ID CONSTANTE NEWLINE
+
+    ID  shift, and go to state 24
+
+
+State 5
+
+   12 sentencia2: MOV_OUT • CONSTANTE ID NEWLINE
+
+    CONSTANTE  shift, and go to state 25
+
+
+State 6
+
+   13 sentencia2: F_TRUNCATE • ID CONSTANTE NEWLINE
+
+    ID  shift, and go to state 26
+
+
+State 7
+
+   14 sentencia2: F_SEEK • ID CONSTANTE NEWLINE
+
+    ID  shift, and go to state 27
+
+
+State 8
+
+   15 sentencia2: CREATE_SEGMENT • CONSTANTE CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 28
+
+
+State 9
+
+   16 sentencia3: IO • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 29
+
+
+State 10
+
+   17 sentencia3: WAIT • ID NEWLINE
+
+    ID  shift, and go to state 30
+
+
+State 11
+
+   18 sentencia3: SIGNAL • ID NEWLINE
+
+    ID  shift, and go to state 31
+
+
+State 12
+
+   19 sentencia3: F_OPEN • ID NEWLINE
+
+    ID  shift, and go to state 32
+
+
+State 13
+
+   20 sentencia3: DELETE_SEGMENT • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 33
+
+
+State 14
+
+    7 sentencias: YIELD • NEWLINE
+
+    NEWLINE  shift, and go to state 34
+
+
+State 15
+
+    0 $accept: programa • $end
+
+    $end  shift, and go to state 35
+
+
+State 16
+
+    1 programa: listasentencia • EXIT
+    3 listasentencia: listasentencia • sentencias
+
+    F_READ          shift, and go to state 1
+    F_WRITE         shift, and go to state 2
+    SET             shift, and go to state 3
+    MOV_IN          shift, and go to state 4
+    MOV_OUT         shift, and go to state 5
+    F_TRUNCATE      shift, and go to state 6
+    F_SEEK          shift, and go to state 7
+    CREATE_SEGMENT  shift, and go to state 8
+    IO              shift, and go to state 9
+    WAIT            shift, and go to state 10
+    SIGNAL          shift, and go to state 11
+    F_OPEN          shift, and go to state 12
+    DELETE_SEGMENT  shift, and go to state 13
+    EXIT            shift, and go to state 36
+    YIELD           shift, and go to state 14
+
+    sentencias  go to state 37
+    sentencia1  go to state 18
+    sentencia2  go to state 19
+    sentencia3  go to state 20
+
+
+State 17
+
+    2 listasentencia: sentencias •
+
+    $default  reduce using rule 2 (listasentencia)
+
+
+State 18
+
+    4 sentencias: sentencia1 •
+
+    $default  reduce using rule 4 (sentencias)
+
+
+State 19
+
+    5 sentencias: sentencia2 •
+
+    $default  reduce using rule 5 (sentencias)
+
+
+State 20
+
+    6 sentencias: sentencia3 •
+
+    $default  reduce using rule 6 (sentencias)
+
+
+State 21
+
+    8 sentencia1: F_READ ID • CONSTANTE CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 38
+
+
+State 22
+
+    9 sentencia1: F_WRITE ID • CONSTANTE CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 39
+
+
+State 23
+
+   10 sentencia2: SET ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 40
+
+
+State 24
+
+   11 sentencia2: MOV_IN ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 41
+
+
+State 25
+
+   12 sentencia2: MOV_OUT CONSTANTE • ID NEWLINE
+
+    ID  shift, and go to state 42
+
+
+State 26
+
+   13 sentencia2: F_TRUNCATE ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 43
+
+
+State 27
+
+   14 sentencia2: F_SEEK ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 44
+
+
+State 28
+
+   15 sentencia2: CREATE_SEGMENT CONSTANTE • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 45
+
+
+State 29
+
+   16 sentencia3: IO CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 46
+
+
+State 30
+
+   17 sentencia3: WAIT ID • NEWLINE
+
+    NEWLINE  shift, and go to state 47
+
+
+State 31
+
+   18 sentencia3: SIGNAL ID • NEWLINE
+
+    NEWLINE  shift, and go to state 48
+
+
+State 32
+
+   19 sentencia3: F_OPEN ID • NEWLINE
+
+    NEWLINE  shift, and go to state 49
+
+
+State 33
+
+   20 sentencia3: DELETE_SEGMENT CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 50
+
+
+State 34
+
+    7 sentencias: YIELD NEWLINE •
+
+    $default  reduce using rule 7 (sentencias)
+
+
+State 35
+
+    0 $accept: programa $end •
+
+    $default  accept
+
+
+State 36
+
+    1 programa: listasentencia EXIT •
+
+    $default  reduce using rule 1 (programa)
+
+
+State 37
+
+    3 listasentencia: listasentencia sentencias •
+
+    $default  reduce using rule 3 (listasentencia)
+
+
+State 38
+
+    8 sentencia1: F_READ ID CONSTANTE • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 51
+
+
+State 39
+
+    9 sentencia1: F_WRITE ID CONSTANTE • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 52
+
+
+State 40
+
+   10 sentencia2: SET ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 53
+
+
+State 41
+
+   11 sentencia2: MOV_IN ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 54
+
+
+State 42
+
+   12 sentencia2: MOV_OUT CONSTANTE ID • NEWLINE
+
+    NEWLINE  shift, and go to state 55
+
+
+State 43
+
+   13 sentencia2: F_TRUNCATE ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 56
+
+
+State 44
+
+   14 sentencia2: F_SEEK ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 57
+
+
+State 45
+
+   15 sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 58
+
+
+State 46
+
+   16 sentencia3: IO CONSTANTE NEWLINE •
+
+    $default  reduce using rule 16 (sentencia3)
+
+
+State 47
+
+   17 sentencia3: WAIT ID NEWLINE •
+
+    $default  reduce using rule 17 (sentencia3)
+
+
+State 48
+
+   18 sentencia3: SIGNAL ID NEWLINE •
+
+    $default  reduce using rule 18 (sentencia3)
+
+
+State 49
+
+   19 sentencia3: F_OPEN ID NEWLINE •
+
+    $default  reduce using rule 19 (sentencia3)
+
+
+State 50
+
+   20 sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE •
+
+    $default  reduce using rule 20 (sentencia3)
+
+
+State 51
+
+    8 sentencia1: F_READ ID CONSTANTE CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 59
+
+
+State 52
+
+    9 sentencia1: F_WRITE ID CONSTANTE CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 60
+
+
+State 53
+
+   10 sentencia2: SET ID CONSTANTE NEWLINE •
+
+    $default  reduce using rule 10 (sentencia2)
+
+
+State 54
+
+   11 sentencia2: MOV_IN ID CONSTANTE NEWLINE •
+
+    $default  reduce using rule 11 (sentencia2)
+
+
+State 55
+
+   12 sentencia2: MOV_OUT CONSTANTE ID NEWLINE •
+
+    $default  reduce using rule 12 (sentencia2)
+
+
+State 56
+
+   13 sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE •
+
+    $default  reduce using rule 13 (sentencia2)
+
+
+State 57
+
+   14 sentencia2: F_SEEK ID CONSTANTE NEWLINE •
+
+    $default  reduce using rule 14 (sentencia2)
+
+
+State 58
+
+   15 sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE •
+
+    $default  reduce using rule 15 (sentencia2)
+
+
+State 59
+
+    8 sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE •
+
+    $default  reduce using rule 8 (sentencia1)
+
+
+State 60
+
+    9 sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE •
+
+    $default  reduce using rule 9 (sentencia1)

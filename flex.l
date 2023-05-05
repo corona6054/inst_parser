@@ -1,11 +1,13 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "y.tab.h"
+#include "bison.tab.h"
 #ifndef yywrap
 static int yywrap(void) { return 1;}
   extern int line_num;
 #endif
+#define YYSTYPE char*
+
 %}
 DIGITO [0-9]
 LETRAS [_a-zA-Z]
@@ -34,7 +36,7 @@ CONSTANTE {DIGITO}+
     return (CONSTANTE);
     }
 {ID} {
-    yylval.cadena=yytext;
+        strcpy(yylval.cadena,yytext);
     return (ID);
 }
 " "  {}
