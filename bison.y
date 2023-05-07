@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include <string.h>
+#include <commons/collections/list.h>
 
 
 struct tablaInstr
