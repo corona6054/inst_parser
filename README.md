@@ -1,6 +1,7 @@
 # inst_parser
-para ejecutar correr: ./TEST
-para compilar correr:
+### para ejecutar correr:
+ ./TEST
+### para compilar correr:
 	clear
 	flex -l flex.l
 	bison -dv bison.y 
