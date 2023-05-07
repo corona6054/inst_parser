@@ -1429,8 +1429,6 @@ int main()
         printf("Instruccion guardada:  %d \n",listaInstr[1].instr);
         printf("Instruccion guardada:  %d \n",listaInstr[2].instr);
         printf("Instruccion guardada:  %d \n",listaInstr[3].instr);
- int num;
-    scanf("%d",&num);
 
 
 }
