@@ -6,14 +6,14 @@
 #include "list.h"
 
 
-struct tablaInstr
+ typedef struct 
 {
     int instr;
     int valor;
     int valor2;
     char nombre[32];
-};
-struct tablaInstr listaInstr;
+}tablaInstr;
+tablaInstr listaInstr;
 	t_list * lista;
 int line_num = -1;
 
@@ -68,19 +68,18 @@ int main()
 
 }
 
-
+void printLista(void* data) {
+    tablaInstr* tabla = (tablaInstr*) data;
+    printf("ID: %d\n", tabla->instr);
+}
 void guardarInstr(int var,char * nombre, int num, int num2)
 {
     listaInstr.instr = var;
     listaInstr.valor = num;
     listaInstr.valor2 = num2;
     strcpy(listaInstr.nombre,nombre);
-    printf("NUMERO LINEA : %d \n",line_num);
-    printf("Instruccion guardada:  %d \n",listaInstr.instr);
-    printf("Instruccion guardada:  %d \n",listaInstr.valor);
-    printf("Instruccion guardada:  %d \n",listaInstr.valor2);
-    printf("Instruccion guardada:  %s \n",listaInstr.nombre);
 list_add(lista,&listaInstr);
+printLista(list_get(lista,line_num));
 
 }
 
