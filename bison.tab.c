@@ -73,7 +73,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include <string.h>
-#include <commons/collections/list.h>
+#include "list.h"
 
 
 struct tablaInstr
@@ -83,7 +83,8 @@ struct tablaInstr
     int valor2;
     char nombre[32];
 };
-struct tablaInstr listaInstr[10];
+struct tablaInstr listaInstr;
+	t_list * lista;
 int line_num = -1;
 
 
@@ -96,7 +97,7 @@ void mostrarResultado(char* salida);
 void guardarInstr(int var,char * nombre, int num, int num2);
 
 
-#line 100 "bison.tab.c"
+#line 101 "bison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -540,9 +541,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    35,    35,    37,    37,    39,    39,    39,    39,    41,
-      42,    44,    45,    46,    47,    48,    49,    51,    52,    53,
-      54,    55
+       0,    36,    36,    38,    38,    40,    40,    40,    40,    42,
+      43,    45,    46,    47,    48,    49,    50,    52,    53,    54,
+      55,    56
 };
 #endif
 
@@ -1138,97 +1139,97 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programa: listasentencia EXIT  */
-#line 35 "bison.y"
+#line 36 "bison.y"
                                {mostrarResultado("Intruccion correcta \n");}
-#line 1144 "bison.tab.c"
+#line 1145 "bison.tab.c"
     break;
 
   case 8: /* sentencias: YIELD NEWLINE  */
-#line 39 "bison.y"
+#line 40 "bison.y"
                                                                  { guardarInstr(YIELD-258,"",0,0); }
-#line 1150 "bison.tab.c"
+#line 1151 "bison.tab.c"
     break;
 
   case 9: /* sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE  */
-#line 41 "bison.y"
+#line 42 "bison.y"
                                                   { guardarInstr(F_READ -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1156 "bison.tab.c"
+#line 1157 "bison.tab.c"
     break;
 
   case 10: /* sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE  */
-#line 42 "bison.y"
+#line 43 "bison.y"
                                                    { guardarInstr(F_WRITE -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1162 "bison.tab.c"
+#line 1163 "bison.tab.c"
     break;
 
   case 11: /* sentencia2: SET ID CONSTANTE NEWLINE  */
-#line 44 "bison.y"
+#line 45 "bison.y"
                                       { guardarInstr(SET-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1168 "bison.tab.c"
+#line 1169 "bison.tab.c"
     break;
 
   case 12: /* sentencia2: MOV_IN ID CONSTANTE NEWLINE  */
-#line 45 "bison.y"
+#line 46 "bison.y"
                                          { guardarInstr(MOV_IN-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1174 "bison.tab.c"
+#line 1175 "bison.tab.c"
     break;
 
   case 13: /* sentencia2: MOV_OUT CONSTANTE ID NEWLINE  */
-#line 46 "bison.y"
+#line 47 "bison.y"
                                           { guardarInstr(MOV_OUT-258,(yyvsp[-1].cadena),(yyvsp[-2].num),0); }
-#line 1180 "bison.tab.c"
+#line 1181 "bison.tab.c"
     break;
 
   case 14: /* sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE  */
-#line 47 "bison.y"
+#line 48 "bison.y"
                                              { guardarInstr(F_TRUNCATE-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1186 "bison.tab.c"
+#line 1187 "bison.tab.c"
     break;
 
   case 15: /* sentencia2: F_SEEK ID CONSTANTE NEWLINE  */
-#line 48 "bison.y"
+#line 49 "bison.y"
                                          { guardarInstr(F_SEEK-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1192 "bison.tab.c"
+#line 1193 "bison.tab.c"
     break;
 
   case 16: /* sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE  */
-#line 49 "bison.y"
+#line 50 "bison.y"
                                                         { guardarInstr(CREATE_SEGMENT-258,"",(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1198 "bison.tab.c"
+#line 1199 "bison.tab.c"
     break;
 
   case 17: /* sentencia3: IO CONSTANTE NEWLINE  */
-#line 51 "bison.y"
+#line 52 "bison.y"
                                  { guardarInstr(IO-258,"",(yyvsp[-1].num),0); }
-#line 1204 "bison.tab.c"
+#line 1205 "bison.tab.c"
     break;
 
   case 18: /* sentencia3: WAIT ID NEWLINE  */
-#line 52 "bison.y"
+#line 53 "bison.y"
                             {  guardarInstr(WAIT-258,(yyvsp[-1].cadena),0,0);}
-#line 1210 "bison.tab.c"
+#line 1211 "bison.tab.c"
     break;
 
   case 19: /* sentencia3: SIGNAL ID NEWLINE  */
-#line 53 "bison.y"
+#line 54 "bison.y"
                               { guardarInstr(SIGNAL-258,(yyvsp[-1].cadena),0,0); }
-#line 1216 "bison.tab.c"
+#line 1217 "bison.tab.c"
     break;
 
   case 20: /* sentencia3: F_OPEN ID NEWLINE  */
-#line 54 "bison.y"
+#line 55 "bison.y"
                               { guardarInstr(F_OPEN-258,(yyvsp[-1].cadena),0,0); }
-#line 1222 "bison.tab.c"
+#line 1223 "bison.tab.c"
     break;
 
   case 21: /* sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE  */
-#line 55 "bison.y"
+#line 56 "bison.y"
                                              { guardarInstr(DELETE_SEGMENT-258,"",(yyvsp[-1].num),0); }
-#line 1228 "bison.tab.c"
+#line 1229 "bison.tab.c"
     break;
 
 
-#line 1232 "bison.tab.c"
+#line 1233 "bison.tab.c"
 
       default: break;
     }
@@ -1421,15 +1422,13 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 60 "bison.y"
+#line 61 "bison.y"
 
 int main()
 {
+        lista = list_create();
         yyparse();
-    printf("Instruccion guardada:  %d \n",listaInstr[0].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[1].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[2].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[3].instr);
+
 
 
 }
@@ -1437,17 +1436,16 @@ int main()
 
 void guardarInstr(int var,char * nombre, int num, int num2)
 {
-    listaInstr[line_num].instr = var;
-    listaInstr[line_num].valor = num;
-    listaInstr[line_num].valor2 = num2;
-    strcpy(listaInstr[line_num].nombre,nombre);
-
+    listaInstr.instr = var;
+    listaInstr.valor = num;
+    listaInstr.valor2 = num2;
+    strcpy(listaInstr.nombre,nombre);
     printf("NUMERO LINEA : %d \n",line_num);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].instr);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].valor);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].valor2);
-    printf("Instruccion guardada:  %s \n",listaInstr[line_num].nombre);
-
+    printf("Instruccion guardada:  %d \n",listaInstr.instr);
+    printf("Instruccion guardada:  %d \n",listaInstr.valor);
+    printf("Instruccion guardada:  %d \n",listaInstr.valor2);
+    printf("Instruccion guardada:  %s \n",listaInstr.nombre);
+list_add(lista,&listaInstr);
 
 }
 
@@ -1456,6 +1454,7 @@ void mostrarResultado(char* salida)
     printf("%s",salida);
     int getc();
 }
+
 
 void yyerror(char* mensaje){
  printf("%s",mensaje); 

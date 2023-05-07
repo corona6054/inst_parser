@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include <string.h>
-#include <commons/collections/list.h>
+#include "list.h"
 
 
 struct tablaInstr
@@ -13,7 +13,8 @@ struct tablaInstr
     int valor2;
     char nombre[32];
 };
-struct tablaInstr listaInstr[10];
+struct tablaInstr listaInstr;
+	t_list * lista;
 int line_num = -1;
 
 
@@ -60,11 +61,9 @@ sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0); } |
 %%
 int main()
 {
+        lista = list_create();
         yyparse();
-    printf("Instruccion guardada:  %d \n",listaInstr[0].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[1].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[2].instr);
-        printf("Instruccion guardada:  %d \n",listaInstr[3].instr);
+
 
 
 }
@@ -72,17 +71,16 @@ int main()
 
 void guardarInstr(int var,char * nombre, int num, int num2)
 {
-    listaInstr[line_num].instr = var;
-    listaInstr[line_num].valor = num;
-    listaInstr[line_num].valor2 = num2;
-    strcpy(listaInstr[line_num].nombre,nombre);
-
+    listaInstr.instr = var;
+    listaInstr.valor = num;
+    listaInstr.valor2 = num2;
+    strcpy(listaInstr.nombre,nombre);
     printf("NUMERO LINEA : %d \n",line_num);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].instr);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].valor);
-    printf("Instruccion guardada:  %d \n",listaInstr[line_num].valor2);
-    printf("Instruccion guardada:  %s \n",listaInstr[line_num].nombre);
-
+    printf("Instruccion guardada:  %d \n",listaInstr.instr);
+    printf("Instruccion guardada:  %d \n",listaInstr.valor);
+    printf("Instruccion guardada:  %d \n",listaInstr.valor2);
+    printf("Instruccion guardada:  %s \n",listaInstr.nombre);
+list_add(lista,&listaInstr);
 
 }
 
@@ -91,6 +89,7 @@ void mostrarResultado(char* salida)
     printf("%s",salida);
     int getc();
 }
+
 
 void yyerror(char* mensaje){
  printf("%s",mensaje); 
