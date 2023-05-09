@@ -1431,12 +1431,21 @@ yyreturnlab:
 
 #line 63 "bison.y"
 
-t_list main(int argc, char** argv)   //LLAMARLO MAIN PARA CORRERLO SOLO
+/*t_list crearLista(char* argv)   //PARA CORRERLO EN TP
 {
-    if (argc != 2) {
-        printf("Forma de uso: %s <file_path>\n", argv[0]);
-        exit(1);
-    }
+        FILE *yyin;
+        yyin=fopen(argv[1],"r");
+        yyrestart(yyin);
+        lista = list_create();
+        yyparse();
+
+        return *lista;
+
+}
+
+*/
+t_list main(int argc, char** argv)
+{
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
