@@ -15,7 +15,7 @@ Grammar
     8 sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE
     9           | F_WRITE ID CONSTANTE CONSTANTE NEWLINE
 
-   10 sentencia2: SET ID CONSTANTE NEWLINE
+   10 sentencia2: SET ID ID NEWLINE
    11           | MOV_IN ID CONSTANTE NEWLINE
    12           | MOV_OUT CONSTANTE ID NEWLINE
    13           | F_TRUNCATE ID CONSTANTE NEWLINE
@@ -52,7 +52,7 @@ Terminals, with rules where they appear
     YIELD (273) 7
     NEWLINE (274) 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
     ID <cadena> (275) 8 9 10 11 12 13 14 17 18 19 20
-    CONSTANTE <num> (276) 8 9 10 11 12 13 14 15 16 21
+    CONSTANTE <num> (276) 8 9 11 12 13 14 15 16 21
 
 
 Nonterminals, with rules where they appear
@@ -123,7 +123,7 @@ State 2
 
 State 3
 
-   10 sentencia2: SET • ID CONSTANTE NEWLINE
+   10 sentencia2: SET • ID ID NEWLINE
 
     ID  shift, and go to state 24
 
@@ -291,9 +291,9 @@ State 23
 
 State 24
 
-   10 sentencia2: SET ID • CONSTANTE NEWLINE
+   10 sentencia2: SET ID • ID NEWLINE
 
-    CONSTANTE  shift, and go to state 42
+    ID  shift, and go to state 42
 
 
 State 25
@@ -417,7 +417,7 @@ State 41
 
 State 42
 
-   10 sentencia2: SET ID CONSTANTE • NEWLINE
+   10 sentencia2: SET ID ID • NEWLINE
 
     NEWLINE  shift, and go to state 56
 
@@ -515,7 +515,7 @@ State 55
 
 State 56
 
-   10 sentencia2: SET ID CONSTANTE NEWLINE •
+   10 sentencia2: SET ID ID NEWLINE •
 
     $default  reduce using rule 10 (sentencia2)
 

@@ -25,7 +25,7 @@ extern int yylex(void);
 extern void yyerror(char*);
 
 void mostrarResultado(char* salida);
-void guardarInstr(int var,char * nombre, int num, int num2);
+void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2);
 
 %}
 %union {char cadena[32]; int num;}
@@ -34,28 +34,28 @@ void guardarInstr(int var,char * nombre, int num, int num2);
 %type <cadena> ID  
 %type <num> CONSTANTE
 %%
-programa:  listasentencia EXIT {guardarInstr(EXIT-258,"",0,0); mostrarResultado("Intruccion correcta \n");}
+programa:  listasentencia EXIT {guardarInstr(EXIT-258,"",0,0,""); mostrarResultado("Intruccion correcta \n");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
-sentencias: sentencia1 | sentencia2 | sentencia3 | YIELD NEWLINE { guardarInstr(YIELD-258,"",0,0); } 
+sentencias: sentencia1 | sentencia2 | sentencia3 | YIELD NEWLINE { guardarInstr(YIELD-258,"",0,0,""); } 
 ;
-sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE { guardarInstr(F_READ -258,$2,$3,$4); } |
-            F_WRITE ID CONSTANTE CONSTANTE NEWLINE { guardarInstr(F_WRITE -258,$2,$3,$4); } 
+sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE { guardarInstr(F_READ -258,$2,$3,$4,""); } |
+            F_WRITE ID CONSTANTE CONSTANTE NEWLINE { guardarInstr(F_WRITE -258,$2,$3,$4,""); } 
 ;
-sentencia2: SET  ID CONSTANTE NEWLINE { guardarInstr(SET-258,$2,$3,0); } |
-            MOV_IN  ID CONSTANTE NEWLINE { guardarInstr(MOV_IN-258,$2,$3,0); } |
-            MOV_OUT  CONSTANTE ID NEWLINE { guardarInstr(MOV_OUT-258,$3,$2,0); } |
-            F_TRUNCATE  ID CONSTANTE NEWLINE { guardarInstr(F_TRUNCATE-258,$2,$3,0); } |
-            F_SEEK  ID CONSTANTE NEWLINE { guardarInstr(F_SEEK-258,$2,$3,0); } |
-            CREATE_SEGMENT  CONSTANTE CONSTANTE NEWLINE { guardarInstr(CREATE_SEGMENT-258,"",$2,$3); } 
+sentencia2: SET  ID ID NEWLINE { guardarInstr(SET-258,$2,0,0,$3); } |
+            MOV_IN  ID CONSTANTE NEWLINE { guardarInstr(MOV_IN-258,$2,$3,0,""); } |
+            MOV_OUT  CONSTANTE ID NEWLINE { guardarInstr(MOV_OUT-258,$3,$2,0,""); } |
+            F_TRUNCATE  ID CONSTANTE NEWLINE { guardarInstr(F_TRUNCATE-258,$2,$3,0,""); } |
+            F_SEEK  ID CONSTANTE NEWLINE { guardarInstr(F_SEEK-258,$2,$3,0,""); } |
+            CREATE_SEGMENT  CONSTANTE CONSTANTE NEWLINE { guardarInstr(CREATE_SEGMENT-258,"",$2,$3,""); } 
 ;
-sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0); } |
-            WAIT ID NEWLINE {  guardarInstr(WAIT-258,$2,0,0);} |
-            SIGNAL ID NEWLINE { guardarInstr(SIGNAL-258,$2,0,0); } |
-            F_OPEN ID NEWLINE { guardarInstr(F_OPEN-258,$2,0,0); } |
-            F_CLOSE ID NEWLINE { guardarInstr(F_CLOSE-258,$2,0,0); } |
-            DELETE_SEGMENT CONSTANTE NEWLINE { guardarInstr(DELETE_SEGMENT-258,"",$2,0); } 
+sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0,""); } |
+            WAIT ID NEWLINE {  guardarInstr(WAIT-258,$2,0,0,"");} |
+            SIGNAL ID NEWLINE { guardarInstr(SIGNAL-258,$2,0,0,""); } |
+            F_OPEN ID NEWLINE { guardarInstr(F_OPEN-258,$2,0,0,""); } |
+            F_CLOSE ID NEWLINE { guardarInstr(F_CLOSE-258,$2,0,0,""); } |
+            DELETE_SEGMENT CONSTANTE NEWLINE { guardarInstr(DELETE_SEGMENT-258,"",$2,0,""); } 
 ;
 
 
@@ -90,12 +90,14 @@ void printLista(void* data) {
     tablaInstr* tabla = (tablaInstr*) data;
     printf("ID: %d\n", tabla->instr);
 }
-void guardarInstr(int var,char * nombre, int num, int num2)
+void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2)
 {
     listaInstr.instr = var;
     listaInstr.valor = num;
     listaInstr.valor2 = num2;
     strcpy(listaInstr.nombre,nombre);
+        strcpy(listaInstr.nombre2,nombre2);
+
 list_add(lista,&listaInstr);
 printLista(list_get(lista,line_num));
 

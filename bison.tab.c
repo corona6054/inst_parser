@@ -95,7 +95,7 @@ extern int yylex(void);
 extern void yyerror(char*);
 
 void mostrarResultado(char* salida);
-void guardarInstr(int var,char * nombre, int num, int num2);
+void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2);
 
 
 #line 102 "bison.tab.c"
@@ -482,7 +482,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  37
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   75
+#define YYLAST   76
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  22
@@ -590,10 +590,10 @@ static const yytype_int8 yypact[] =
 {
       13,    10,    12,    14,    15,    16,    18,    19,    20,    21,
       23,    24,    25,    26,    27,    17,    33,    -3,    -4,    -4,
-      -4,    -4,    28,    29,    30,    31,    34,    32,    35,    36,
-      39,    40,    41,    42,    43,    44,    -4,    -4,    -4,    -4,
-      45,    46,    49,    50,    51,    52,    53,    54,    -4,    -4,
-      -4,    -4,    -4,    -4,    55,    56,    -4,    -4,    -4,    -4,
+      -4,    -4,    28,    29,    31,    32,    34,    35,    36,    37,
+      40,    41,    42,    43,    44,    45,    -4,    -4,    -4,    -4,
+      46,    47,    50,    51,    52,    53,    54,    55,    -4,    -4,
+      -4,    -4,    -4,    -4,    56,    57,    -4,    -4,    -4,    -4,
       -4,    -4,    -4,    -4
 };
 
@@ -614,7 +614,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4,    -4,    38,    -4,    -4,    -4
+      -4,    -4,    -4,    30,    -4,    -4,    -4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -632,10 +632,10 @@ static const yytype_int8 yytable[] =
       11,    12,    13,    14,    38,    15,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       22,    15,    23,    37,    24,    25,    36,    26,    27,    28,
-       0,    29,    30,    31,    32,    33,    34,     0,    35,    40,
-      41,    42,    43,    45,    44,    39,    46,    47,    48,    49,
-      50,    51,    52,    53,     0,     0,    54,    55,    56,    57,
-      58,    59,    60,    61,    62,    63
+       0,    29,    30,    31,    32,    33,    34,    39,    35,    40,
+      41,    42,     0,    43,    44,     0,    45,    46,    47,    48,
+      49,    50,    51,    52,    53,     0,     0,    54,    55,    56,
+      57,    58,    59,    60,    61,    62,    63
 };
 
 static const yytype_int8 yycheck[] =
@@ -644,10 +644,10 @@ static const yytype_int8 yycheck[] =
       13,    14,    15,    16,    17,    18,     3,     4,     5,     6,
        7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
       20,    18,    20,     0,    20,    20,    19,    21,    20,    20,
-      -1,    21,    21,    20,    20,    20,    20,    -1,    21,    21,
-      21,    21,    21,    21,    20,    17,    21,    21,    19,    19,
-      19,    19,    19,    19,    -1,    -1,    21,    21,    19,    19,
-      19,    19,    19,    19,    19,    19
+      -1,    21,    21,    20,    20,    20,    20,    17,    21,    21,
+      21,    20,    -1,    21,    20,    -1,    21,    21,    21,    19,
+      19,    19,    19,    19,    19,    -1,    -1,    21,    21,    19,
+      19,    19,    19,    19,    19,    19,    19
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -658,7 +658,7 @@ static const yytype_int8 yystos[] =
       12,    13,    14,    15,    16,    18,    23,    24,    25,    26,
       27,    28,    20,    20,    20,    20,    21,    20,    20,    21,
       21,    20,    20,    20,    20,    21,    19,     0,    17,    25,
-      21,    21,    21,    21,    20,    21,    21,    21,    19,    19,
+      21,    21,    20,    21,    20,    21,    21,    21,    19,    19,
       19,    19,    19,    19,    21,    21,    19,    19,    19,    19,
       19,    19,    19,    19
 };
@@ -1141,97 +1141,97 @@ yyreduce:
     {
   case 2: /* programa: listasentencia EXIT  */
 #line 37 "bison.y"
-                               {guardarInstr(EXIT-258,"",0,0); mostrarResultado("Intruccion correcta \n");}
+                               {guardarInstr(EXIT-258,"",0,0,""); mostrarResultado("Intruccion correcta \n");}
 #line 1146 "bison.tab.c"
     break;
 
   case 8: /* sentencias: YIELD NEWLINE  */
 #line 41 "bison.y"
-                                                                 { guardarInstr(YIELD-258,"",0,0); }
+                                                                 { guardarInstr(YIELD-258,"",0,0,""); }
 #line 1152 "bison.tab.c"
     break;
 
   case 9: /* sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE  */
 #line 43 "bison.y"
-                                                  { guardarInstr(F_READ -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
+                                                  { guardarInstr(F_READ -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num),""); }
 #line 1158 "bison.tab.c"
     break;
 
   case 10: /* sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE  */
 #line 44 "bison.y"
-                                                   { guardarInstr(F_WRITE -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
+                                                   { guardarInstr(F_WRITE -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num),""); }
 #line 1164 "bison.tab.c"
     break;
 
-  case 11: /* sentencia2: SET ID CONSTANTE NEWLINE  */
+  case 11: /* sentencia2: SET ID ID NEWLINE  */
 #line 46 "bison.y"
-                                      { guardarInstr(SET-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
+                               { guardarInstr(SET-258,(yyvsp[-2].cadena),0,0,(yyvsp[-1].cadena)); }
 #line 1170 "bison.tab.c"
     break;
 
   case 12: /* sentencia2: MOV_IN ID CONSTANTE NEWLINE  */
 #line 47 "bison.y"
-                                         { guardarInstr(MOV_IN-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
+                                         { guardarInstr(MOV_IN-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
 #line 1176 "bison.tab.c"
     break;
 
   case 13: /* sentencia2: MOV_OUT CONSTANTE ID NEWLINE  */
 #line 48 "bison.y"
-                                          { guardarInstr(MOV_OUT-258,(yyvsp[-1].cadena),(yyvsp[-2].num),0); }
+                                          { guardarInstr(MOV_OUT-258,(yyvsp[-1].cadena),(yyvsp[-2].num),0,""); }
 #line 1182 "bison.tab.c"
     break;
 
   case 14: /* sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE  */
 #line 49 "bison.y"
-                                             { guardarInstr(F_TRUNCATE-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
+                                             { guardarInstr(F_TRUNCATE-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
 #line 1188 "bison.tab.c"
     break;
 
   case 15: /* sentencia2: F_SEEK ID CONSTANTE NEWLINE  */
 #line 50 "bison.y"
-                                         { guardarInstr(F_SEEK-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
+                                         { guardarInstr(F_SEEK-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
 #line 1194 "bison.tab.c"
     break;
 
   case 16: /* sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE  */
 #line 51 "bison.y"
-                                                        { guardarInstr(CREATE_SEGMENT-258,"",(yyvsp[-2].num),(yyvsp[-1].num)); }
+                                                        { guardarInstr(CREATE_SEGMENT-258,"",(yyvsp[-2].num),(yyvsp[-1].num),""); }
 #line 1200 "bison.tab.c"
     break;
 
   case 17: /* sentencia3: IO CONSTANTE NEWLINE  */
 #line 53 "bison.y"
-                                 { guardarInstr(IO-258,"",(yyvsp[-1].num),0); }
+                                 { guardarInstr(IO-258,"",(yyvsp[-1].num),0,""); }
 #line 1206 "bison.tab.c"
     break;
 
   case 18: /* sentencia3: WAIT ID NEWLINE  */
 #line 54 "bison.y"
-                            {  guardarInstr(WAIT-258,(yyvsp[-1].cadena),0,0);}
+                            {  guardarInstr(WAIT-258,(yyvsp[-1].cadena),0,0,"");}
 #line 1212 "bison.tab.c"
     break;
 
   case 19: /* sentencia3: SIGNAL ID NEWLINE  */
 #line 55 "bison.y"
-                              { guardarInstr(SIGNAL-258,(yyvsp[-1].cadena),0,0); }
+                              { guardarInstr(SIGNAL-258,(yyvsp[-1].cadena),0,0,""); }
 #line 1218 "bison.tab.c"
     break;
 
   case 20: /* sentencia3: F_OPEN ID NEWLINE  */
 #line 56 "bison.y"
-                              { guardarInstr(F_OPEN-258,(yyvsp[-1].cadena),0,0); }
+                              { guardarInstr(F_OPEN-258,(yyvsp[-1].cadena),0,0,""); }
 #line 1224 "bison.tab.c"
     break;
 
   case 21: /* sentencia3: F_CLOSE ID NEWLINE  */
 #line 57 "bison.y"
-                               { guardarInstr(F_CLOSE-258,(yyvsp[-1].cadena),0,0); }
+                               { guardarInstr(F_CLOSE-258,(yyvsp[-1].cadena),0,0,""); }
 #line 1230 "bison.tab.c"
     break;
 
   case 22: /* sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE  */
 #line 58 "bison.y"
-                                             { guardarInstr(DELETE_SEGMENT-258,"",(yyvsp[-1].num),0); }
+                                             { guardarInstr(DELETE_SEGMENT-258,"",(yyvsp[-1].num),0,""); }
 #line 1236 "bison.tab.c"
     break;
 
@@ -1460,12 +1460,14 @@ void printLista(void* data) {
     tablaInstr* tabla = (tablaInstr*) data;
     printf("ID: %d\n", tabla->instr);
 }
-void guardarInstr(int var,char * nombre, int num, int num2)
+void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2)
 {
     listaInstr.instr = var;
     listaInstr.valor = num;
     listaInstr.valor2 = num2;
     strcpy(listaInstr.nombre,nombre);
+        strcpy(listaInstr.nombre2,nombre2);
+
 list_add(lista,&listaInstr);
 printLista(list_get(lista,line_num));
 
