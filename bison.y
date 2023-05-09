@@ -17,7 +17,6 @@ tablaInstr listaInstr;
 	t_list * lista;
 int line_num = -1;
 
-
 extern char yytext[];
 extern int yyleng;
 extern int yylex(void);
@@ -59,12 +58,19 @@ sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0); } |
 
 
 %%
-int main()
+t_list main(int argc, char** argv)   //LLAMARLO MAIN PARA CORRERLO SOLO
 {
+    if (argc != 2) {
+        printf("Forma de uso: %s <file_path>\n", argv[0]);
+        exit(1);
+    }
+        FILE *yyin;
+        yyin=fopen(argv[1],"r");
+        yyrestart(yyin);
         lista = list_create();
         yyparse();
 
-
+        return *lista;
 
 }
 
