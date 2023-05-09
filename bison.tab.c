@@ -82,6 +82,8 @@
     int valor;
     int valor2;
     char nombre[32];
+    char nombre2[32];
+
 }tablaInstr;
 tablaInstr listaInstr;
 	t_list * lista;
@@ -96,7 +98,7 @@ void mostrarResultado(char* salida);
 void guardarInstr(int var,char * nombre, int num, int num2);
 
 
-#line 100 "bison.tab.c"
+#line 102 "bison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -478,18 +480,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  35
+#define YYFINAL  37
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   71
+#define YYLAST   75
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  22
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  21
+#define YYNRULES  22
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  61
+#define YYNSTATES  64
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   276
@@ -540,9 +542,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    35,    35,    37,    37,    39,    39,    39,    39,    41,
-      42,    44,    45,    46,    47,    48,    49,    51,    52,    53,
-      54,    55
+       0,    37,    37,    39,    39,    41,    41,    41,    41,    43,
+      44,    46,    47,    48,    49,    50,    51,    53,    54,    55,
+      56,    57,    58
 };
 #endif
 
@@ -572,7 +574,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-9)
+#define YYPACT_NINF (-4)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -586,13 +588,13 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      13,    -8,     8,    10,    12,    14,    16,    17,    18,    19,
-      21,    22,    23,    24,    15,    33,    -3,    -9,    -9,    -9,
-      -9,    25,    26,    27,    28,    30,    31,    32,    34,    35,
-      37,    38,    39,    40,    -9,    -9,    -9,    -9,    41,    42,
-      45,    46,    47,    48,    49,    50,    -9,    -9,    -9,    -9,
-      -9,    51,    52,    -9,    -9,    -9,    -9,    -9,    -9,    -9,
-      -9
+      13,    10,    12,    14,    15,    16,    18,    19,    20,    21,
+      23,    24,    25,    26,    27,    17,    33,    -3,    -4,    -4,
+      -4,    -4,    28,    29,    30,    31,    34,    32,    35,    36,
+      39,    40,    41,    42,    43,    44,    -4,    -4,    -4,    -4,
+      45,    46,    49,    50,    51,    52,    53,    54,    -4,    -4,
+      -4,    -4,    -4,    -4,    55,    56,    -4,    -4,    -4,    -4,
+      -4,    -4,    -4,    -4
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -601,24 +603,24 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     3,     5,     6,
-       7,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     8,     1,     2,     4,     0,     0,
-       0,     0,     0,     0,     0,     0,    17,    18,    19,    20,
-      21,     0,     0,    11,    12,    13,    14,    15,    16,     9,
-      10
+       0,     0,     0,     0,     0,     0,     0,     0,     3,     5,
+       6,     7,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     8,     1,     2,     4,
+       0,     0,     0,     0,     0,     0,     0,     0,    17,    18,
+      19,    20,    21,    22,     0,     0,    11,    12,    13,    14,
+      15,    16,     9,    10
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -9,    -9,    -9,    44,    -9,    -9,    -9
+      -4,    -4,    -4,    38,    -4,    -4,    -4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,    15,    16,    17,    18,    19,    20
+       0,    16,    17,    18,    19,    20,    21
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -627,25 +629,25 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
        1,     2,     3,     4,     5,     6,     7,     8,     9,    10,
-      11,    12,    21,    13,    36,    14,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    22,    13,
-      23,    14,    24,    35,    34,    25,    26,    27,     0,    28,
-      29,    30,    31,    32,     0,    33,    38,    39,    40,    41,
-      42,     0,    43,    44,    46,    45,    47,    48,    49,    50,
-      37,     0,    51,    52,    53,    54,    55,    56,    57,    58,
-      59,    60
+      11,    12,    13,    14,    38,    15,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      22,    15,    23,    37,    24,    25,    36,    26,    27,    28,
+       0,    29,    30,    31,    32,    33,    34,     0,    35,    40,
+      41,    42,    43,    45,    44,    39,    46,    47,    48,    49,
+      50,    51,    52,    53,     0,     0,    54,    55,    56,    57,
+      58,    59,    60,    61,    62,    63
 };
 
 static const yytype_int8 yycheck[] =
 {
        3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    14,    20,    16,    17,    18,     3,     4,     5,     6,
-       7,     8,     9,    10,    11,    12,    13,    14,    20,    16,
-      20,    18,    20,     0,    19,    21,    20,    20,    -1,    21,
-      21,    20,    20,    20,    -1,    21,    21,    21,    21,    21,
-      20,    -1,    21,    21,    19,    21,    19,    19,    19,    19,
-      16,    -1,    21,    21,    19,    19,    19,    19,    19,    19,
-      19,    19
+      13,    14,    15,    16,    17,    18,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      20,    18,    20,     0,    20,    20,    19,    21,    20,    20,
+      -1,    21,    21,    20,    20,    20,    20,    -1,    21,    21,
+      21,    21,    21,    21,    20,    17,    21,    21,    19,    19,
+      19,    19,    19,    19,    -1,    -1,    21,    21,    19,    19,
+      19,    19,    19,    19,    19,    19
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -653,12 +655,12 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    16,    18,    23,    24,    25,    26,    27,
-      28,    20,    20,    20,    20,    21,    20,    20,    21,    21,
-      20,    20,    20,    21,    19,     0,    17,    25,    21,    21,
-      21,    21,    20,    21,    21,    21,    19,    19,    19,    19,
-      19,    21,    21,    19,    19,    19,    19,    19,    19,    19,
-      19
+      12,    13,    14,    15,    16,    18,    23,    24,    25,    26,
+      27,    28,    20,    20,    20,    20,    21,    20,    20,    21,
+      21,    20,    20,    20,    20,    21,    19,     0,    17,    25,
+      21,    21,    21,    21,    20,    21,    21,    21,    19,    19,
+      19,    19,    19,    19,    21,    21,    19,    19,    19,    19,
+      19,    19,    19,    19
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -666,7 +668,7 @@ static const yytype_int8 yyr1[] =
 {
        0,    22,    23,    24,    24,    25,    25,    25,    25,    26,
       26,    27,    27,    27,    27,    27,    27,    28,    28,    28,
-      28,    28
+      28,    28,    28
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -674,7 +676,7 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     1,     2,     1,     1,     1,     2,     5,
        5,     4,     4,     4,     4,     4,     4,     3,     3,     3,
-       3,     3
+       3,     3,     3
 };
 
 
@@ -1138,97 +1140,103 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programa: listasentencia EXIT  */
-#line 35 "bison.y"
-                               {mostrarResultado("Intruccion correcta \n");}
-#line 1144 "bison.tab.c"
+#line 37 "bison.y"
+                               {guardarInstr(EXIT-258,"",0,0); mostrarResultado("Intruccion correcta \n");}
+#line 1146 "bison.tab.c"
     break;
 
   case 8: /* sentencias: YIELD NEWLINE  */
-#line 39 "bison.y"
+#line 41 "bison.y"
                                                                  { guardarInstr(YIELD-258,"",0,0); }
-#line 1150 "bison.tab.c"
+#line 1152 "bison.tab.c"
     break;
 
   case 9: /* sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE  */
-#line 41 "bison.y"
+#line 43 "bison.y"
                                                   { guardarInstr(F_READ -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1156 "bison.tab.c"
+#line 1158 "bison.tab.c"
     break;
 
   case 10: /* sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE  */
-#line 42 "bison.y"
+#line 44 "bison.y"
                                                    { guardarInstr(F_WRITE -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1162 "bison.tab.c"
+#line 1164 "bison.tab.c"
     break;
 
   case 11: /* sentencia2: SET ID CONSTANTE NEWLINE  */
-#line 44 "bison.y"
+#line 46 "bison.y"
                                       { guardarInstr(SET-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1168 "bison.tab.c"
+#line 1170 "bison.tab.c"
     break;
 
   case 12: /* sentencia2: MOV_IN ID CONSTANTE NEWLINE  */
-#line 45 "bison.y"
+#line 47 "bison.y"
                                          { guardarInstr(MOV_IN-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1174 "bison.tab.c"
+#line 1176 "bison.tab.c"
     break;
 
   case 13: /* sentencia2: MOV_OUT CONSTANTE ID NEWLINE  */
-#line 46 "bison.y"
+#line 48 "bison.y"
                                           { guardarInstr(MOV_OUT-258,(yyvsp[-1].cadena),(yyvsp[-2].num),0); }
-#line 1180 "bison.tab.c"
+#line 1182 "bison.tab.c"
     break;
 
   case 14: /* sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE  */
-#line 47 "bison.y"
+#line 49 "bison.y"
                                              { guardarInstr(F_TRUNCATE-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1186 "bison.tab.c"
+#line 1188 "bison.tab.c"
     break;
 
   case 15: /* sentencia2: F_SEEK ID CONSTANTE NEWLINE  */
-#line 48 "bison.y"
+#line 50 "bison.y"
                                          { guardarInstr(F_SEEK-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0); }
-#line 1192 "bison.tab.c"
+#line 1194 "bison.tab.c"
     break;
 
   case 16: /* sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE  */
-#line 49 "bison.y"
+#line 51 "bison.y"
                                                         { guardarInstr(CREATE_SEGMENT-258,"",(yyvsp[-2].num),(yyvsp[-1].num)); }
-#line 1198 "bison.tab.c"
+#line 1200 "bison.tab.c"
     break;
 
   case 17: /* sentencia3: IO CONSTANTE NEWLINE  */
-#line 51 "bison.y"
+#line 53 "bison.y"
                                  { guardarInstr(IO-258,"",(yyvsp[-1].num),0); }
-#line 1204 "bison.tab.c"
+#line 1206 "bison.tab.c"
     break;
 
   case 18: /* sentencia3: WAIT ID NEWLINE  */
-#line 52 "bison.y"
+#line 54 "bison.y"
                             {  guardarInstr(WAIT-258,(yyvsp[-1].cadena),0,0);}
-#line 1210 "bison.tab.c"
+#line 1212 "bison.tab.c"
     break;
 
   case 19: /* sentencia3: SIGNAL ID NEWLINE  */
-#line 53 "bison.y"
+#line 55 "bison.y"
                               { guardarInstr(SIGNAL-258,(yyvsp[-1].cadena),0,0); }
-#line 1216 "bison.tab.c"
+#line 1218 "bison.tab.c"
     break;
 
   case 20: /* sentencia3: F_OPEN ID NEWLINE  */
-#line 54 "bison.y"
+#line 56 "bison.y"
                               { guardarInstr(F_OPEN-258,(yyvsp[-1].cadena),0,0); }
-#line 1222 "bison.tab.c"
+#line 1224 "bison.tab.c"
     break;
 
-  case 21: /* sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE  */
-#line 55 "bison.y"
+  case 21: /* sentencia3: F_CLOSE ID NEWLINE  */
+#line 57 "bison.y"
+                               { guardarInstr(F_CLOSE-258,(yyvsp[-1].cadena),0,0); }
+#line 1230 "bison.tab.c"
+    break;
+
+  case 22: /* sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE  */
+#line 58 "bison.y"
                                              { guardarInstr(DELETE_SEGMENT-258,"",(yyvsp[-1].num),0); }
-#line 1228 "bison.tab.c"
+#line 1236 "bison.tab.c"
     break;
 
 
-#line 1232 "bison.tab.c"
+#line 1240 "bison.tab.c"
 
       default: break;
     }
@@ -1421,7 +1429,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 60 "bison.y"
+#line 63 "bison.y"
 
 t_list main(int argc, char** argv)   //LLAMARLO MAIN PARA CORRERLO SOLO
 {

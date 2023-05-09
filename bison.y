@@ -12,6 +12,8 @@
     int valor;
     int valor2;
     char nombre[32];
+    char nombre2[32];
+
 }tablaInstr;
 tablaInstr listaInstr;
 	t_list * lista;
@@ -32,7 +34,7 @@ void guardarInstr(int var,char * nombre, int num, int num2);
 %type <cadena> ID  
 %type <num> CONSTANTE
 %%
-programa:  listasentencia EXIT {mostrarResultado("Intruccion correcta \n");}
+programa:  listasentencia EXIT {guardarInstr(EXIT-258,"",0,0); mostrarResultado("Intruccion correcta \n");}
 ;
 listasentencia: sentencias | listasentencia sentencias
 ;
@@ -52,6 +54,7 @@ sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0); } |
             WAIT ID NEWLINE {  guardarInstr(WAIT-258,$2,0,0);} |
             SIGNAL ID NEWLINE { guardarInstr(SIGNAL-258,$2,0,0); } |
             F_OPEN ID NEWLINE { guardarInstr(F_OPEN-258,$2,0,0); } |
+            F_CLOSE ID NEWLINE { guardarInstr(F_CLOSE-258,$2,0,0); } |
             DELETE_SEGMENT CONSTANTE NEWLINE { guardarInstr(DELETE_SEGMENT-258,"",$2,0); } 
 ;
 

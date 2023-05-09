@@ -1,8 +1,3 @@
-Terminals unused in grammar
-
-    F_CLOSE
-
-
 Grammar
 
     0 $accept: programa $end
@@ -31,7 +26,8 @@ Grammar
    17           | WAIT ID NEWLINE
    18           | SIGNAL ID NEWLINE
    19           | F_OPEN ID NEWLINE
-   20           | DELETE_SEGMENT CONSTANTE NEWLINE
+   20           | F_CLOSE ID NEWLINE
+   21           | DELETE_SEGMENT CONSTANTE NEWLINE
 
 
 Terminals, with rules where they appear
@@ -50,13 +46,13 @@ Terminals, with rules where they appear
     WAIT (267) 17
     SIGNAL (268) 18
     F_OPEN (269) 19
-    F_CLOSE (270)
-    DELETE_SEGMENT (271) 20
+    F_CLOSE (270) 20
+    DELETE_SEGMENT (271) 21
     EXIT (272) 1
     YIELD (273) 7
-    NEWLINE (274) 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-    ID <cadena> (275) 8 9 10 11 12 13 14 17 18 19
-    CONSTANTE <num> (276) 8 9 10 11 12 13 14 15 16 20
+    NEWLINE (274) 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+    ID <cadena> (275) 8 9 10 11 12 13 14 17 18 19 20
+    CONSTANTE <num> (276) 8 9 10 11 12 13 14 15 16 21
 
 
 Nonterminals, with rules where they appear
@@ -79,7 +75,7 @@ Nonterminals, with rules where they appear
         on left: 10 11 12 13 14 15
         on right: 5
     sentencia3 (28)
-        on left: 16 17 18 19 20
+        on left: 16 17 18 19 20 21
         on right: 6
 
 
@@ -99,123 +95,131 @@ State 0
     WAIT            shift, and go to state 10
     SIGNAL          shift, and go to state 11
     F_OPEN          shift, and go to state 12
-    DELETE_SEGMENT  shift, and go to state 13
-    YIELD           shift, and go to state 14
+    F_CLOSE         shift, and go to state 13
+    DELETE_SEGMENT  shift, and go to state 14
+    YIELD           shift, and go to state 15
 
-    programa        go to state 15
-    listasentencia  go to state 16
-    sentencias      go to state 17
-    sentencia1      go to state 18
-    sentencia2      go to state 19
-    sentencia3      go to state 20
+    programa        go to state 16
+    listasentencia  go to state 17
+    sentencias      go to state 18
+    sentencia1      go to state 19
+    sentencia2      go to state 20
+    sentencia3      go to state 21
 
 
 State 1
 
     8 sentencia1: F_READ • ID CONSTANTE CONSTANTE NEWLINE
 
-    ID  shift, and go to state 21
+    ID  shift, and go to state 22
 
 
 State 2
 
     9 sentencia1: F_WRITE • ID CONSTANTE CONSTANTE NEWLINE
 
-    ID  shift, and go to state 22
+    ID  shift, and go to state 23
 
 
 State 3
 
    10 sentencia2: SET • ID CONSTANTE NEWLINE
 
-    ID  shift, and go to state 23
+    ID  shift, and go to state 24
 
 
 State 4
 
    11 sentencia2: MOV_IN • ID CONSTANTE NEWLINE
 
-    ID  shift, and go to state 24
+    ID  shift, and go to state 25
 
 
 State 5
 
    12 sentencia2: MOV_OUT • CONSTANTE ID NEWLINE
 
-    CONSTANTE  shift, and go to state 25
+    CONSTANTE  shift, and go to state 26
 
 
 State 6
 
    13 sentencia2: F_TRUNCATE • ID CONSTANTE NEWLINE
 
-    ID  shift, and go to state 26
+    ID  shift, and go to state 27
 
 
 State 7
 
    14 sentencia2: F_SEEK • ID CONSTANTE NEWLINE
 
-    ID  shift, and go to state 27
+    ID  shift, and go to state 28
 
 
 State 8
 
    15 sentencia2: CREATE_SEGMENT • CONSTANTE CONSTANTE NEWLINE
 
-    CONSTANTE  shift, and go to state 28
+    CONSTANTE  shift, and go to state 29
 
 
 State 9
 
    16 sentencia3: IO • CONSTANTE NEWLINE
 
-    CONSTANTE  shift, and go to state 29
+    CONSTANTE  shift, and go to state 30
 
 
 State 10
 
    17 sentencia3: WAIT • ID NEWLINE
 
-    ID  shift, and go to state 30
+    ID  shift, and go to state 31
 
 
 State 11
 
    18 sentencia3: SIGNAL • ID NEWLINE
 
-    ID  shift, and go to state 31
+    ID  shift, and go to state 32
 
 
 State 12
 
    19 sentencia3: F_OPEN • ID NEWLINE
 
-    ID  shift, and go to state 32
+    ID  shift, and go to state 33
 
 
 State 13
 
-   20 sentencia3: DELETE_SEGMENT • CONSTANTE NEWLINE
+   20 sentencia3: F_CLOSE • ID NEWLINE
 
-    CONSTANTE  shift, and go to state 33
+    ID  shift, and go to state 34
 
 
 State 14
 
-    7 sentencias: YIELD • NEWLINE
+   21 sentencia3: DELETE_SEGMENT • CONSTANTE NEWLINE
 
-    NEWLINE  shift, and go to state 34
+    CONSTANTE  shift, and go to state 35
 
 
 State 15
 
-    0 $accept: programa • $end
+    7 sentencias: YIELD • NEWLINE
 
-    $end  shift, and go to state 35
+    NEWLINE  shift, and go to state 36
 
 
 State 16
+
+    0 $accept: programa • $end
+
+    $end  shift, and go to state 37
+
+
+State 17
 
     1 programa: listasentencia • EXIT
     3 listasentencia: listasentencia • sentencias
@@ -232,318 +236,333 @@ State 16
     WAIT            shift, and go to state 10
     SIGNAL          shift, and go to state 11
     F_OPEN          shift, and go to state 12
-    DELETE_SEGMENT  shift, and go to state 13
-    EXIT            shift, and go to state 36
-    YIELD           shift, and go to state 14
+    F_CLOSE         shift, and go to state 13
+    DELETE_SEGMENT  shift, and go to state 14
+    EXIT            shift, and go to state 38
+    YIELD           shift, and go to state 15
 
-    sentencias  go to state 37
-    sentencia1  go to state 18
-    sentencia2  go to state 19
-    sentencia3  go to state 20
+    sentencias  go to state 39
+    sentencia1  go to state 19
+    sentencia2  go to state 20
+    sentencia3  go to state 21
 
 
-State 17
+State 18
 
     2 listasentencia: sentencias •
 
     $default  reduce using rule 2 (listasentencia)
 
 
-State 18
+State 19
 
     4 sentencias: sentencia1 •
 
     $default  reduce using rule 4 (sentencias)
 
 
-State 19
+State 20
 
     5 sentencias: sentencia2 •
 
     $default  reduce using rule 5 (sentencias)
 
 
-State 20
+State 21
 
     6 sentencias: sentencia3 •
 
     $default  reduce using rule 6 (sentencias)
 
 
-State 21
-
-    8 sentencia1: F_READ ID • CONSTANTE CONSTANTE NEWLINE
-
-    CONSTANTE  shift, and go to state 38
-
-
 State 22
 
-    9 sentencia1: F_WRITE ID • CONSTANTE CONSTANTE NEWLINE
-
-    CONSTANTE  shift, and go to state 39
-
-
-State 23
-
-   10 sentencia2: SET ID • CONSTANTE NEWLINE
+    8 sentencia1: F_READ ID • CONSTANTE CONSTANTE NEWLINE
 
     CONSTANTE  shift, and go to state 40
 
 
-State 24
+State 23
 
-   11 sentencia2: MOV_IN ID • CONSTANTE NEWLINE
+    9 sentencia1: F_WRITE ID • CONSTANTE CONSTANTE NEWLINE
 
     CONSTANTE  shift, and go to state 41
 
 
+State 24
+
+   10 sentencia2: SET ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 42
+
+
 State 25
 
-   12 sentencia2: MOV_OUT CONSTANTE • ID NEWLINE
-
-    ID  shift, and go to state 42
-
-
-State 26
-
-   13 sentencia2: F_TRUNCATE ID • CONSTANTE NEWLINE
+   11 sentencia2: MOV_IN ID • CONSTANTE NEWLINE
 
     CONSTANTE  shift, and go to state 43
 
 
+State 26
+
+   12 sentencia2: MOV_OUT CONSTANTE • ID NEWLINE
+
+    ID  shift, and go to state 44
+
+
 State 27
 
-   14 sentencia2: F_SEEK ID • CONSTANTE NEWLINE
-
-    CONSTANTE  shift, and go to state 44
-
-
-State 28
-
-   15 sentencia2: CREATE_SEGMENT CONSTANTE • CONSTANTE NEWLINE
+   13 sentencia2: F_TRUNCATE ID • CONSTANTE NEWLINE
 
     CONSTANTE  shift, and go to state 45
 
 
+State 28
+
+   14 sentencia2: F_SEEK ID • CONSTANTE NEWLINE
+
+    CONSTANTE  shift, and go to state 46
+
+
 State 29
 
-   16 sentencia3: IO CONSTANTE • NEWLINE
+   15 sentencia2: CREATE_SEGMENT CONSTANTE • CONSTANTE NEWLINE
 
-    NEWLINE  shift, and go to state 46
+    CONSTANTE  shift, and go to state 47
 
 
 State 30
 
-   17 sentencia3: WAIT ID • NEWLINE
-
-    NEWLINE  shift, and go to state 47
-
-
-State 31
-
-   18 sentencia3: SIGNAL ID • NEWLINE
+   16 sentencia3: IO CONSTANTE • NEWLINE
 
     NEWLINE  shift, and go to state 48
 
 
-State 32
+State 31
 
-   19 sentencia3: F_OPEN ID • NEWLINE
+   17 sentencia3: WAIT ID • NEWLINE
 
     NEWLINE  shift, and go to state 49
 
 
-State 33
+State 32
 
-   20 sentencia3: DELETE_SEGMENT CONSTANTE • NEWLINE
+   18 sentencia3: SIGNAL ID • NEWLINE
 
     NEWLINE  shift, and go to state 50
 
 
+State 33
+
+   19 sentencia3: F_OPEN ID • NEWLINE
+
+    NEWLINE  shift, and go to state 51
+
+
 State 34
+
+   20 sentencia3: F_CLOSE ID • NEWLINE
+
+    NEWLINE  shift, and go to state 52
+
+
+State 35
+
+   21 sentencia3: DELETE_SEGMENT CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 53
+
+
+State 36
 
     7 sentencias: YIELD NEWLINE •
 
     $default  reduce using rule 7 (sentencias)
 
 
-State 35
+State 37
 
     0 $accept: programa $end •
 
     $default  accept
 
 
-State 36
+State 38
 
     1 programa: listasentencia EXIT •
 
     $default  reduce using rule 1 (programa)
 
 
-State 37
+State 39
 
     3 listasentencia: listasentencia sentencias •
 
     $default  reduce using rule 3 (listasentencia)
 
 
-State 38
+State 40
 
     8 sentencia1: F_READ ID CONSTANTE • CONSTANTE NEWLINE
 
-    CONSTANTE  shift, and go to state 51
-
-
-State 39
-
-    9 sentencia1: F_WRITE ID CONSTANTE • CONSTANTE NEWLINE
-
-    CONSTANTE  shift, and go to state 52
-
-
-State 40
-
-   10 sentencia2: SET ID CONSTANTE • NEWLINE
-
-    NEWLINE  shift, and go to state 53
+    CONSTANTE  shift, and go to state 54
 
 
 State 41
 
-   11 sentencia2: MOV_IN ID CONSTANTE • NEWLINE
+    9 sentencia1: F_WRITE ID CONSTANTE • CONSTANTE NEWLINE
 
-    NEWLINE  shift, and go to state 54
+    CONSTANTE  shift, and go to state 55
 
 
 State 42
 
-   12 sentencia2: MOV_OUT CONSTANTE ID • NEWLINE
-
-    NEWLINE  shift, and go to state 55
-
-
-State 43
-
-   13 sentencia2: F_TRUNCATE ID CONSTANTE • NEWLINE
+   10 sentencia2: SET ID CONSTANTE • NEWLINE
 
     NEWLINE  shift, and go to state 56
 
 
-State 44
+State 43
 
-   14 sentencia2: F_SEEK ID CONSTANTE • NEWLINE
+   11 sentencia2: MOV_IN ID CONSTANTE • NEWLINE
 
     NEWLINE  shift, and go to state 57
 
 
-State 45
+State 44
 
-   15 sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE • NEWLINE
+   12 sentencia2: MOV_OUT CONSTANTE ID • NEWLINE
 
     NEWLINE  shift, and go to state 58
 
 
+State 45
+
+   13 sentencia2: F_TRUNCATE ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 59
+
+
 State 46
+
+   14 sentencia2: F_SEEK ID CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 60
+
+
+State 47
+
+   15 sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE • NEWLINE
+
+    NEWLINE  shift, and go to state 61
+
+
+State 48
 
    16 sentencia3: IO CONSTANTE NEWLINE •
 
     $default  reduce using rule 16 (sentencia3)
 
 
-State 47
+State 49
 
    17 sentencia3: WAIT ID NEWLINE •
 
     $default  reduce using rule 17 (sentencia3)
 
 
-State 48
+State 50
 
    18 sentencia3: SIGNAL ID NEWLINE •
 
     $default  reduce using rule 18 (sentencia3)
 
 
-State 49
+State 51
 
    19 sentencia3: F_OPEN ID NEWLINE •
 
     $default  reduce using rule 19 (sentencia3)
 
 
-State 50
+State 52
 
-   20 sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE •
+   20 sentencia3: F_CLOSE ID NEWLINE •
 
     $default  reduce using rule 20 (sentencia3)
 
 
-State 51
+State 53
+
+   21 sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE •
+
+    $default  reduce using rule 21 (sentencia3)
+
+
+State 54
 
     8 sentencia1: F_READ ID CONSTANTE CONSTANTE • NEWLINE
 
-    NEWLINE  shift, and go to state 59
+    NEWLINE  shift, and go to state 62
 
 
-State 52
+State 55
 
     9 sentencia1: F_WRITE ID CONSTANTE CONSTANTE • NEWLINE
 
-    NEWLINE  shift, and go to state 60
+    NEWLINE  shift, and go to state 63
 
 
-State 53
+State 56
 
    10 sentencia2: SET ID CONSTANTE NEWLINE •
 
     $default  reduce using rule 10 (sentencia2)
 
 
-State 54
+State 57
 
    11 sentencia2: MOV_IN ID CONSTANTE NEWLINE •
 
     $default  reduce using rule 11 (sentencia2)
 
 
-State 55
+State 58
 
    12 sentencia2: MOV_OUT CONSTANTE ID NEWLINE •
 
     $default  reduce using rule 12 (sentencia2)
 
 
-State 56
+State 59
 
    13 sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE •
 
     $default  reduce using rule 13 (sentencia2)
 
 
-State 57
+State 60
 
    14 sentencia2: F_SEEK ID CONSTANTE NEWLINE •
 
     $default  reduce using rule 14 (sentencia2)
 
 
-State 58
+State 61
 
    15 sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE •
 
     $default  reduce using rule 15 (sentencia2)
 
 
-State 59
+State 62
 
     8 sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE •
 
     $default  reduce using rule 8 (sentencia1)
 
 
-State 60
+State 63
 
     9 sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE •
 
