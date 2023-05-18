@@ -3,7 +3,6 @@
 #include<stdlib.h>
 #include<math.h>
 #include <string.h>
-#include "list.h"
 
 
  typedef struct 
@@ -15,8 +14,7 @@
     char nombre2[32];
 
 }tablaInstr;
-tablaInstr listaInstr;
-	t_list * lista;
+tablaInstr listaInstr[100];
 int line_num = -1;
 
 extern char yytext[];
@@ -66,7 +64,6 @@ sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0,""); } |
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
-        lista = list_create();
         yyparse();
 
         return *lista;
@@ -74,32 +71,27 @@ sentencia3: IO CONSTANTE NEWLINE { guardarInstr(IO-258,"",$2,0,""); } |
 }
 
 */
-t_list main(int argc, char** argv)
+int main(int argc, char** argv)
 {
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
-        lista = list_create();
         yyparse();
-
-        return *lista;
+        return 0;
 
 }
 
-void printLista(void* data) {
-    tablaInstr* tabla = (tablaInstr*) data;
-    printf("ID: %d\n", tabla->instr);
-}
+
 void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2)
 {
-    listaInstr.instr = var;
-    listaInstr.valor = num;
-    listaInstr.valor2 = num2;
-    strcpy(listaInstr.nombre,nombre);
-        strcpy(listaInstr.nombre2,nombre2);
+    listaInstr[line_num].instr = var;
+    listaInstr[line_num].valor = num;
+    listaInstr[line_num].valor2 = num2;
+    strcpy(listaInstr[line_num].nombre,nombre);
+        strcpy(listaInstr[line_num].nombre2,nombre2);
+        printf("ID:%d \n",listaInstr[line_num].instr);
+        
 
-list_add(lista,&listaInstr);
-printLista(list_get(lista,line_num));
 
 }
 

@@ -73,7 +73,6 @@
 #include<stdlib.h>
 #include<math.h>
 #include <string.h>
-#include "list.h"
 
 
  typedef struct 
@@ -85,8 +84,7 @@
     char nombre2[32];
 
 }tablaInstr;
-tablaInstr listaInstr;
-	t_list * lista;
+tablaInstr listaInstr[100];
 int line_num = -1;
 
 extern char yytext[];
@@ -98,7 +96,7 @@ void mostrarResultado(char* salida);
 void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2);
 
 
-#line 102 "bison.tab.c"
+#line 100 "bison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -542,9 +540,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    37,    37,    39,    39,    41,    41,    41,    41,    43,
-      44,    46,    47,    48,    49,    50,    51,    53,    54,    55,
-      56,    57,    58
+       0,    35,    35,    37,    37,    39,    39,    39,    39,    41,
+      42,    44,    45,    46,    47,    48,    49,    51,    52,    53,
+      54,    55,    56
 };
 #endif
 
@@ -1140,103 +1138,103 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programa: listasentencia EXIT  */
-#line 37 "bison.y"
+#line 35 "bison.y"
                                {guardarInstr(EXIT-258,"",0,0,""); mostrarResultado("Intruccion correcta \n");}
-#line 1146 "bison.tab.c"
+#line 1144 "bison.tab.c"
     break;
 
   case 8: /* sentencias: YIELD NEWLINE  */
-#line 41 "bison.y"
+#line 39 "bison.y"
                                                                  { guardarInstr(YIELD-258,"",0,0,""); }
-#line 1152 "bison.tab.c"
+#line 1150 "bison.tab.c"
     break;
 
   case 9: /* sentencia1: F_READ ID CONSTANTE CONSTANTE NEWLINE  */
-#line 43 "bison.y"
+#line 41 "bison.y"
                                                   { guardarInstr(F_READ -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num),""); }
-#line 1158 "bison.tab.c"
+#line 1156 "bison.tab.c"
     break;
 
   case 10: /* sentencia1: F_WRITE ID CONSTANTE CONSTANTE NEWLINE  */
-#line 44 "bison.y"
+#line 42 "bison.y"
                                                    { guardarInstr(F_WRITE -258,(yyvsp[-3].cadena),(yyvsp[-2].num),(yyvsp[-1].num),""); }
-#line 1164 "bison.tab.c"
+#line 1162 "bison.tab.c"
     break;
 
   case 11: /* sentencia2: SET ID ID NEWLINE  */
-#line 46 "bison.y"
+#line 44 "bison.y"
                                { guardarInstr(SET-258,(yyvsp[-2].cadena),0,0,(yyvsp[-1].cadena)); }
-#line 1170 "bison.tab.c"
+#line 1168 "bison.tab.c"
     break;
 
   case 12: /* sentencia2: MOV_IN ID CONSTANTE NEWLINE  */
-#line 47 "bison.y"
+#line 45 "bison.y"
                                          { guardarInstr(MOV_IN-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
-#line 1176 "bison.tab.c"
+#line 1174 "bison.tab.c"
     break;
 
   case 13: /* sentencia2: MOV_OUT CONSTANTE ID NEWLINE  */
-#line 48 "bison.y"
+#line 46 "bison.y"
                                           { guardarInstr(MOV_OUT-258,(yyvsp[-1].cadena),(yyvsp[-2].num),0,""); }
-#line 1182 "bison.tab.c"
+#line 1180 "bison.tab.c"
     break;
 
   case 14: /* sentencia2: F_TRUNCATE ID CONSTANTE NEWLINE  */
-#line 49 "bison.y"
+#line 47 "bison.y"
                                              { guardarInstr(F_TRUNCATE-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
-#line 1188 "bison.tab.c"
+#line 1186 "bison.tab.c"
     break;
 
   case 15: /* sentencia2: F_SEEK ID CONSTANTE NEWLINE  */
-#line 50 "bison.y"
+#line 48 "bison.y"
                                          { guardarInstr(F_SEEK-258,(yyvsp[-2].cadena),(yyvsp[-1].num),0,""); }
-#line 1194 "bison.tab.c"
+#line 1192 "bison.tab.c"
     break;
 
   case 16: /* sentencia2: CREATE_SEGMENT CONSTANTE CONSTANTE NEWLINE  */
-#line 51 "bison.y"
+#line 49 "bison.y"
                                                         { guardarInstr(CREATE_SEGMENT-258,"",(yyvsp[-2].num),(yyvsp[-1].num),""); }
-#line 1200 "bison.tab.c"
+#line 1198 "bison.tab.c"
     break;
 
   case 17: /* sentencia3: IO CONSTANTE NEWLINE  */
-#line 53 "bison.y"
+#line 51 "bison.y"
                                  { guardarInstr(IO-258,"",(yyvsp[-1].num),0,""); }
-#line 1206 "bison.tab.c"
+#line 1204 "bison.tab.c"
     break;
 
   case 18: /* sentencia3: WAIT ID NEWLINE  */
-#line 54 "bison.y"
+#line 52 "bison.y"
                             {  guardarInstr(WAIT-258,(yyvsp[-1].cadena),0,0,"");}
-#line 1212 "bison.tab.c"
+#line 1210 "bison.tab.c"
     break;
 
   case 19: /* sentencia3: SIGNAL ID NEWLINE  */
-#line 55 "bison.y"
+#line 53 "bison.y"
                               { guardarInstr(SIGNAL-258,(yyvsp[-1].cadena),0,0,""); }
-#line 1218 "bison.tab.c"
+#line 1216 "bison.tab.c"
     break;
 
   case 20: /* sentencia3: F_OPEN ID NEWLINE  */
-#line 56 "bison.y"
+#line 54 "bison.y"
                               { guardarInstr(F_OPEN-258,(yyvsp[-1].cadena),0,0,""); }
-#line 1224 "bison.tab.c"
+#line 1222 "bison.tab.c"
     break;
 
   case 21: /* sentencia3: F_CLOSE ID NEWLINE  */
-#line 57 "bison.y"
+#line 55 "bison.y"
                                { guardarInstr(F_CLOSE-258,(yyvsp[-1].cadena),0,0,""); }
-#line 1230 "bison.tab.c"
+#line 1228 "bison.tab.c"
     break;
 
   case 22: /* sentencia3: DELETE_SEGMENT CONSTANTE NEWLINE  */
-#line 58 "bison.y"
+#line 56 "bison.y"
                                              { guardarInstr(DELETE_SEGMENT-258,"",(yyvsp[-1].num),0,""); }
-#line 1236 "bison.tab.c"
+#line 1234 "bison.tab.c"
     break;
 
 
-#line 1240 "bison.tab.c"
+#line 1238 "bison.tab.c"
 
       default: break;
     }
@@ -1429,14 +1427,13 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 63 "bison.y"
+#line 61 "bison.y"
 
 /*t_list crearLista(char* argv)   //PARA CORRERLO EN TP
 {
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
-        lista = list_create();
         yyparse();
 
         return *lista;
@@ -1444,32 +1441,27 @@ yyreturnlab:
 }
 
 */
-t_list main(int argc, char** argv)
+int main(int argc, char** argv)
 {
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
-        lista = list_create();
         yyparse();
-
-        return *lista;
+        return 0;
 
 }
 
-void printLista(void* data) {
-    tablaInstr* tabla = (tablaInstr*) data;
-    printf("ID: %d\n", tabla->instr);
-}
+
 void guardarInstr(int var,char * nombre, int num, int num2,char * nombre2)
 {
-    listaInstr.instr = var;
-    listaInstr.valor = num;
-    listaInstr.valor2 = num2;
-    strcpy(listaInstr.nombre,nombre);
-        strcpy(listaInstr.nombre2,nombre2);
+    listaInstr[line_num].instr = var;
+    listaInstr[line_num].valor = num;
+    listaInstr[line_num].valor2 = num2;
+    strcpy(listaInstr[line_num].nombre,nombre);
+        strcpy(listaInstr[line_num].nombre2,nombre2);
+        printf("ID:%d \n",listaInstr[line_num].instr);
+        
 
-list_add(lista,&listaInstr);
-printLista(list_get(lista,line_num));
 
 }
 
