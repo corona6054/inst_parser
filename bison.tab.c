@@ -1441,13 +1441,21 @@ yyreturnlab:
 }
 
 */
-int main(int argc, char** argv)
+tablaInstr* main(int argc, char** argv)
 {
         FILE *yyin;
         yyin=fopen(argv[1],"r");
         yyrestart(yyin);
         yyparse();
-        return 0;
+        tablaInstr* listaFinal = malloc(line_num * sizeof(tablaInstr));
+        for(int i = 0; i<line_num;i++){
+            listaFinal[i].instr = listaInstr[i].instr;
+        }
+
+        
+        
+
+        return listaFinal;
 
 }
 
